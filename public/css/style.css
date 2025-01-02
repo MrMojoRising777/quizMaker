@@ -1,0 +1,65 @@
+*::placeholder {
+    font-style: italic;
+}
+
+.w-20 {
+    width: 20% !important;
+}
+.w-25 {
+    width: 25% !important;
+}
+.w-50 {
+    width: 50% !important;
+}
+.w-100 {
+    width: 100% !important;
+}
+
+/* margin & padding */
+.mr-5 {
+    margin-right: 5px;
+}
+
+.mt-5 {
+    margin-top: 5px;
+}
+
+.displayNone {
+    display: none;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.fw-200 {
+    font-weight: 200 !important;
+}
+.fw-400 {
+    font-weight: 400 !important;
+}
+.fw-600 {
+    font-weight: 600 !important;
+}
+.fw-800 {
+    font-weight: 800 !important;
+}
+
+.fs-12 {
+    font-size: 12px !important;
+}
+.fs-14 {
+    font-size: 14px !important;
+}
+.fs-18 {
+    font-size: 18px !important;
+}
+.fs-24 {
+    font-size: 24px !important;
+}
+.fs-26 {
+    font-size: 26px !important;
+}
+.fs-28 {
+    font-size: 28px !important;
+}

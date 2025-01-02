@@ -1,0 +1,115 @@
+:root {
+    --black: #141414;
+    --gray: #a9a9a9;
+    --off-white: #faf9f6;
+    --orange: #db7d2f;
+    --yellow: #f9d500;
+    --light-yellow: #f4d35e;
+    --red: #a10f0f;
+    --light-red: #d33e43;
+    --blue: #31345a;
+    --light-blue: #30638e;
+    --green: #5b7553;
+}
+
+.card {
+    background-color: var(--green) !important;
+}
+
+.login-card {
+    background-color: var(--off-white) !important;
+}
+
+body {
+    background-color: var(--light-blue);
+}
+
+.modal,
+.modal .modal-footer {
+    background-color: var(--light-blue) !important;
+}
+
+input {
+    color: var(--black) !important;
+}
+
+*::placeholder {
+    color: var(--gray) !important;
+}
+
+.bg-black {
+    background-color: var(--black) !important;
+}
+.text-black {
+    color: var(--black) !important;
+}
+
+.bg-gray {
+    background-color: var(--gray) !important;
+}
+.text-gray {
+    color: var(--gray) !important;
+}
+
+.bg-off-white {
+    background-color: var(--off-white) !important;
+}
+.text-off-white {
+    color: var(--off-white) !important;
+}
+
+.bg-orange {
+    background-color: var(--orange) !important;
+}
+.text-orange {
+    color: var(--orange) !important;
+}
+
+.bg-yellow {
+    background-color: var(--yellow) !important;
+}
+.text-yellow {
+    color: var(--yellow) !important;
+}
+
+.bg-light-yellow {
+    background-color: var(--light-yellow) !important;
+}
+.text-light-yellow {
+    color: var(--light-yellow) !important;
+}
+
+.bg-red {
+    background-color: var(--red) !important;
+}
+.text-red {
+    color: var(--red) !important;
+}
+
+.bg-light-red {
+    background-color: var(--light-red) !important;
+}
+.text-light-red {
+    color: var(--light-red) !important;
+}
+
+.bg-blue {
+    background-color: var(--blue) !important;
+}
+.text-blue {
+    color: var(--blue) !important;
+}
+
+.bg-light-blue {
+    background-color: var(--light-blue) !important;
+}
+.text-light-blue {
+    color: var(--light-blue) !important;
+}
+
+.bg-green {
+    background-color: var(--green) !important;
+}
+.text-green {
+    color: var(--green) !important;
+}
