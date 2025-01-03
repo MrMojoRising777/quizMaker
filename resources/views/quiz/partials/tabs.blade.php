@@ -1,8 +1,8 @@
 <div class="col s12">
-    <ul class="tabs bg-red">
+    <ul class="tabs red-bg">
         @foreach($quiz->rounds as $round)
             <li class="tab col s2">
-                <a href="#tab-{{ $round->dev_slug }}" class="text-yellow">{{ $round->title }}</a>
+                <a href="#tab-{{ $round->dev_slug }}" class="yellow-text">{{ $round->title }}</a>
             </li>
         @endforeach
 

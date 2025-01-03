@@ -7,12 +7,12 @@
                 <div class="row">
                     @can('create quiz')
                         <div class="col s12">
-                            <div class="card bg-off-white">
+                            <div class="card off-white-bg">
                                 <div class="card-content">
                                     @include('quiz.includes.table')
                                 </div>
                                 <div class="card-action">
-                                    <a href="#newQuizModal" class="btn bg-blue modal-trigger">Quiz maken</a>
+                                    <a href="#newQuizModal" class="btn blue-bg modal-trigger">Quiz maken</a>
                                 </div>
                             </div>
                         </div>

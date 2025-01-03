@@ -12,16 +12,17 @@
     --green: #5b7553;
 }
 
+/* Specific element coloring */
+body {
+    background-color: var(--light-blue);
+}
+
 .card {
     background-color: var(--green) !important;
 }
 
 .login-card {
     background-color: var(--off-white) !important;
-}
-
-body {
-    background-color: var(--light-blue);
 }
 
 .modal,
@@ -37,79 +38,28 @@ input {
     color: var(--gray) !important;
 }
 
-.bg-black {
-    background-color: var(--black) !important;
-}
-.text-black {
-    color: var(--black) !important;
+/* Utility classes for colors */
+[class*="-bg"] {
+    background-color: var(--default-color) !important;
 }
 
-.bg-gray {
-    background-color: var(--gray) !important;
-}
-.text-gray {
-    color: var(--gray) !important;
+[class*="-text"] {
+    color: var(--default-color) !important;
 }
 
-.bg-off-white {
-    background-color: var(--off-white) !important;
-}
-.text-off-white {
-    color: var(--off-white) !important;
+[class*="-on-hover"]:hover {
+    color: var(--default-color) !important;
 }
 
-.bg-orange {
-    background-color: var(--orange) !important;
-}
-.text-orange {
-    color: var(--orange) !important;
-}
-
-.bg-yellow {
-    background-color: var(--yellow) !important;
-}
-.text-yellow {
-    color: var(--yellow) !important;
-}
-
-.bg-light-yellow {
-    background-color: var(--light-yellow) !important;
-}
-.text-light-yellow {
-    color: var(--light-yellow) !important;
-}
-
-.bg-red {
-    background-color: var(--red) !important;
-}
-.text-red {
-    color: var(--red) !important;
-}
-
-.bg-light-red {
-    background-color: var(--light-red) !important;
-}
-.text-light-red {
-    color: var(--light-red) !important;
-}
-
-.bg-blue {
-    background-color: var(--blue) !important;
-}
-.text-blue {
-    color: var(--blue) !important;
-}
-
-.bg-light-blue {
-    background-color: var(--light-blue) !important;
-}
-.text-light-blue {
-    color: var(--light-blue) !important;
-}
-
-.bg-green {
-    background-color: var(--green) !important;
-}
-.text-green {
-    color: var(--green) !important;
-}
+/* Map color-specific classes */
+.black-bg, .black-text, .black-on-hover { --default-color: var(--black); }
+.gray-bg, .gray-text, .gray-on-hover { --default-color: var(--gray); }
+.off-white-bg, .off-white-text, .white-on-hover { --default-color: var(--off-white); }
+.orange-bg, .orange-text, .orange-on-hover { --default-color: var(--orange); }
+.yellow-bg, .yellow-text, .yellow-on-hover { --default-color: var(--yellow); }
+.light-yellow-bg, .light-yellow-text, .light-yellow-on-hover { --default-color: var(--light-yellow); }
+.red-bg, .red-text, .red-on-hover { --default-color: var(--red); }
+.light-red-bg, .light-red-text, .light-red-on-hover { --default-color: var(--light-red); }
+.blue-bg, .blue-text, .blue-on-hover { --default-color: var(--blue); }
+.light-blue-bg, .light-blue-text, .light-blue-on-hover { --default-color: var(--light-blue); }
+.green-bg, .green-text, .green-on-hover { --default-color: var(--green); }

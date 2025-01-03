@@ -1,7 +1,15 @@
-import './bootstrap';
+import { createApp } from 'vue';
+import ExampleComponent from './components/ExampleComponent.vue';
 
-import Alpine from 'alpinejs';
+// Comment out PrimeVue for a test
+import PrimeVue from 'primevue/config';
+import Rating from 'primevue/rating';
 
-window.Alpine = Alpine;
+const app = createApp({});
 
-Alpine.start();
+app.use(PrimeVue);
+app.component('Rating', Rating);
+
+app.component('example-component', ExampleComponent);
+
+app.mount('#app');

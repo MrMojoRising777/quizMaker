@@ -45,7 +45,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // Player routes
-    Route::group(['middleware' => ['role:Player']], function () {
+    Route::group(['middleware' => ['role:Player|Super Admin']], function () {
         // Reviews
         Route::controller(ReviewController::class)->prefix('review')->name('reviews.')->group(function () {
             Route::post('/store/{quiz}', 'store')->name('store');

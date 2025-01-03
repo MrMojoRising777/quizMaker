@@ -7,6 +7,8 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/colors.css') }}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -18,11 +20,15 @@
     <div class="min-height">
         @include('layouts.navigation')
 
-        <main>
-            <div class="container">
-                @yield('content')
-            </div>
-        </main>
+        <div id="app">
+            <main>
+                <div class="container">
+                    @yield('content')
+                </div>
+            </main>
+        </div>
+
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

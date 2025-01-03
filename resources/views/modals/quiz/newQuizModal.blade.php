@@ -12,11 +12,11 @@
                 </div>
             </div>
 
-            <button class="btn bg-blue">Aanmaken</button>
+            <button class="btn blue-bg">Aanmaken</button>
         </form>
 
     </div>
     <div class="modal-footer">
-        <a href="javascript:void(0)" class="waves-effect btn-flat text-black">sluiten</a>
+        <a href="javascript:void(0)" class="waves-effect btn-flat black-text">sluiten</a>
     </div>
 </div>

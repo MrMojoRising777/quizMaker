@@ -26,10 +26,10 @@
                 ({{ $quiz->reviews->count() }})
             </td>
             <td>
-                <a class="text-orange" href="{{ route('quiz.show', ['quiz' => $quiz->id]) }}"><i class="material-icons">edit</i></a>
-                <a class="text-red delete-quiz" href="javascript:void(0);" data-id="{{ $quiz->id }}"><i class="material-icons">delete</i></a>
-                <a class="text-light-blue host-quiz" href="javascript:void(0);" data-id="{{ $quiz->id }}"><i class="material-icons">cloud_upload</i></a>
-                <a class="text-light-yellow modal-trigger" href="#reviewModal"><i class="material-icons">rate_review</i></a>
+                <a class="orange-text" href="{{ route('quiz.show', ['quiz' => $quiz->id]) }}"><i class="material-icons">edit</i></a>
+                <a class="red-text delete-quiz" href="javascript:void(0);" data-id="{{ $quiz->id }}"><i class="material-icons">delete</i></a>
+                <a class="light-blue-text host-quiz" href="javascript:void(0);" data-id="{{ $quiz->id }}"><i class="material-icons">cloud_upload</i></a>
+                <a class="light-yellow-text modal-trigger" href="#reviewModal"><i class="material-icons">rate_review</i></a>
             </td>
         </tr>
     @empty

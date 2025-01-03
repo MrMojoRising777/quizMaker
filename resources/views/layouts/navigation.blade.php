@@ -1,4 +1,4 @@
-<nav class="nav-wrapper bg-blue">
+<nav class="nav-wrapper blue-bg">
     <div class="container">
         <a href="{{ route('dashboard') }}" class="brand-logo">
             LOGO
@@ -6,7 +6,7 @@
 
         <ul class="right hide-on-med-and-down">
             <li>
-                <a href="{{ route('quiz.index') }}" class="text-black {{ request()->routeIs('quiz.index') ? 'active' : '' }}">
+                <a href="{{ route('quiz.index') }}" class="black-text {{ request()->routeIs('quiz.index') ? 'active' : '' }}">
                     Quizzen
                 </a>
             </li>
