@@ -10,6 +10,7 @@
     --blue: #31345a;
     --light-blue: #30638e;
     --green: #5b7553;
+    --light-green: #2f7532;
 }
 
 /* Specific element coloring */
@@ -63,3 +64,4 @@ input {
 .blue-bg, .blue-text, .blue-on-hover { --default-color: var(--blue); }
 .light-blue-bg, .light-blue-text, .light-blue-on-hover { --default-color: var(--light-blue); }
 .green-bg, .green-text, .green-on-hover { --default-color: var(--green); }
+.light-green-bg, .light-green-text, .light-green-on-hover { --default-color: var(--light-green); }

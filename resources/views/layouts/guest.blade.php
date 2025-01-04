@@ -7,6 +7,8 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/colors.css') }}">
 
@@ -18,9 +20,24 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
 </head>
 <body>
-    <main>
-        @yield('content')
-    </main>
+    <div id="app">
+        <main class="height-100vh">
+            <div class="row">
+                @if(Route::is('login') || Route::is('register'))
+                    <div class="col m7 l8">
+
+                    </div>
+                    <div class="col s12 m5 l4 login-col">
+                        @yield('content')
+                    </div>
+                @else
+                    <div class="col s10 push-s1 m8 push-m2 l6 push-l3">
+                        @yield('content')
+                    </div>
+                @endif
+            </div>
+        </main>
+    </div>
 
     <!-- Materialize JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

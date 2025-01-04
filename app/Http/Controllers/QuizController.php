@@ -6,6 +6,7 @@ use App\Models\Quiz;
 use App\Models\Round;
 use App\Models\Answer;
 use App\Models\Question;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -108,6 +109,7 @@ class QuizController extends Controller
 
         // Save image if present
         if ($hasImage) {
+            if($question->file_path) Storage::disk('public')->delete($question->file_path);
             $filePath = $file->store('uploads/round-images', 'public');
             $question->update(['file_path' => $filePath]);
         }
