@@ -1,14 +1,19 @@
 <nav class="nav-wrapper blue-bg">
+    <a href="{{ route('dashboard') }}" class="brand-logo ml-5">
+        LOGO
+    </a>
     <div class="container">
-        <a href="{{ route('dashboard') }}" class="brand-logo">
-            LOGO
-        </a>
-
         <ul class="right hide-on-med-and-down">
             <li>
                 <a href="{{ route('quiz.index') }}" class="black-text {{ request()->routeIs('quiz.index') ? 'active' : '' }}">
                     Quizzen
                 </a>
+            </li>
+            <li>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="btn-flat black-text">{{ __('Log Out') }}</button>
+                </form>
             </li>
         </ul>
 

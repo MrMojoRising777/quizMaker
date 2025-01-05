@@ -1,13 +1,19 @@
 @extends('layouts.guest')
 
 @section('content')
-    <div class="card login-card m-none">
+    <div class="card m-none">
         <div class="card-content">
             <div class="image-container">
                 <img src="{{ asset('svg/logoipsum.svg') }}" alt="Icon">
             </div>
 
             <span class="card-title fs-28 fw-600 center-align">{{ __('Login') }}</span>
+
+            <div class="row">
+                <div class="col s12 right-align">
+                    <a href="{{ route('register') }}" class="blue-text">{{ __('No account?') }}</a>
+                </div>
+            </div>
 
             <!-- Session Status -->
             @if (session('status'))
@@ -16,25 +22,25 @@
                 </div>
             @endif
 
+            @foreach (['email', 'password'] as $field)
+                @error($field)
+                    <span class="helper-text red-text">{{ $message }}</span>
+                @enderror
+            @endforeach
+
             <form method="POST" action="{{ route('login') }}">
                 @csrf
 
-                <!-- Email Address -->
-                <div class="input-field">
-                    <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" class="validate">
-                    <label for="email">{{ __('Email') }}</label>
-                    @error('email')
-                    <span class="helper-text" data-error="{{ $message }}"></span>
-                    @enderror
-                </div>
+                <div class="row">
+                    <!-- Email Address -->
+                    <div class="col s12">
+                        <input id="email" type="email" placeholder="Email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" class="validate">
+                    </div>
 
-                <!-- Password -->
-                <div class="input-field">
-                    <input id="password" type="password" name="password" required autocomplete="current-password" class="validate">
-                    <label for="password">{{ __('Password') }}</label>
-                    @error('password')
-                        <span class="helper-text" data-error="{{ $message }}"></span>
-                    @enderror
+                    <div class="col s12">
+                        <password-validator :show-feedback="false"></password-validator>
+{{--                        <input id="password" type="password" placeholder="Password" name="password" required autocomplete="current-password" class="validate">--}}
+                    </div>
                 </div>
 
                 <!-- Remember Me -->

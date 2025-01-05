@@ -1,7 +1,7 @@
 @extends('layouts.guest')
 
 @section('content')
-    <div class="card login-card">
+    <div class="card">
         <div class="card-content">
             <div class="image-container">
                 <img src="{{ asset('svg/logoipsum.svg') }}" alt="Icon">

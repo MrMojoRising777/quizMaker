@@ -1,7 +1,7 @@
 @extends('layouts.guest')
 
 @section('content')
-    <div class="card login-card">
+    <div class="card">
         <div class="card-content">
             <form method="POST" action="{{ route('password.store') }}">
                 @csrf

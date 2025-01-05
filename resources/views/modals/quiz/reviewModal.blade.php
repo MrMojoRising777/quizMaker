@@ -14,8 +14,8 @@
         </div>
 
         <div class="modal-footer">
-            <a href="javascript:void(0);" class="modal-close waves-effect waves-green btn-flat">Close</a>
-            <button type="submit">Submit Review</button>
+            <a href="javascript:void(0);" class="modal-close btn-flat black-text">Close</a>
+            <button type="submit" class="btn-flat black-text">Submit Review</button>
         </div>
     </form>
 </div>

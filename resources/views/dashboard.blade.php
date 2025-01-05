@@ -4,8 +4,8 @@
     <div class="section">
         <div class="card">
             <div class="card-content">
-                <div class="row">
-                    @can('create quiz')
+                @can('create quiz')
+                    <div class="row">
                         <div class="col s12">
                             <div class="card off-white-bg">
                                 <div class="card-content">
@@ -16,35 +16,32 @@
                                 </div>
                             </div>
                         </div>
-                    @endcan
-                </div>
-                <div class="row">
-                    @can('edit quiz')
-                        <div class="col s4">
-                            <div class="btn">EDIT</div>
+                    </div>
+                @endcan
+
+                @if(auth()->user()->hasRole('Player'))
+                    <div class="row">
+                        <div class="col s12 m6">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="card-title">Personal</div>
+                                </div>
+                            </div>
                         </div>
-                    @endcan
-                    @can('delete quiz')
-                        <div class="col s4">
-                            <div class="btn">DELETE</div>
+
+                        <div class="col s12 m6">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="card-title">Personal</div>
+                                </div>
+                            </div>
                         </div>
-                    @endcan
-                    @can('host quiz')
-                        <div class="col s4">
-                            <div class="btn">HOST</div>
-                        </div>
-                    @endcan
-                    @can('play quiz')
-                        <div class="col s4">
-                            <div class="btn">PLAY</div>
-                        </div>
-                    @endcan
-                    @can('review quiz')
-                        <div class="col s4">
-                            <div class="btn">REVIEW</div>
-                        </div>
-                    @endcan
-                </div>
+                    </div>
+                @endif
+
+                @can('play quiz')
+
+                @endcan
             </div>
         </div>
     </div>

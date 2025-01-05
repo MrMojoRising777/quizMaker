@@ -28,6 +28,10 @@
     margin-right: 5px;
 }
 
+.ml-5 {
+    margin-left: 5px;
+}
+
 .mt-5 {
     margin-top: 5px;
 }
@@ -81,4 +85,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.custom {
+    box-shadow: none !important;
+}
+
+.custom .p-inputwrapper {
+    width: 100% !important;
+}
+
+.style-normal input::placeholder {
+    font-style: normal;
 }

@@ -19,10 +19,6 @@ body {
 }
 
 .card {
-    background-color: var(--green) !important;
-}
-
-.login-card {
     background-color: var(--off-white) !important;
 }
 
