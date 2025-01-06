@@ -5,7 +5,7 @@
             @csrf
             <div class="row">
                 <div class="col s12">
-                    <input type="text" name="title" placeholder="Round title">
+                    <input type="text" name="title" placeholder="{{ __("Round title") }}">
 
                     <select name="type" class="browser-default">
                         @foreach(\App\Models\Round::getRoundTypes() as $type)
@@ -15,7 +15,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn waves-effect waves-light">Submit</button>
+            <button type="submit" class="btn waves-effect waves-light">{{ __("Save") }}</button>
         </form>
     </div>
 </div>

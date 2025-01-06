@@ -12,7 +12,7 @@
                                     @include('quiz.includes.table')
                                 </div>
                                 <div class="card-action">
-                                    <a href="#newQuizModal" class="btn blue-bg modal-trigger">Quiz maken</a>
+                                    <a href="#newQuizModal" class="btn blue-bg modal-trigger">{{ __("Create quiz") }}</a>
                                 </div>
                             </div>
                         </div>
@@ -24,7 +24,7 @@
                         <div class="col s12 m6">
                             <div class="card">
                                 <div class="card-content">
-                                    <div class="card-title">Personal</div>
+                                    <div class="card-title">{{ __("Personal") }}</div>
                                 </div>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                         <div class="col s12 m6">
                             <div class="card">
                                 <div class="card-content">
-                                    <div class="card-title">Personal</div>
+                                    <div class="card-title">{{ __("Personal") }}</div>
                                 </div>
                             </div>
                         </div>

@@ -10,7 +10,7 @@
                     <img src="{{ asset('svg/logoipsum.svg') }}" alt="Icon">
                 </div>
 
-                <div class="card-title fs-28 fw-600 center-align">New Password</div>
+                <div class="card-title fs-28 fw-600 center-align">{{ __("New Password") }}</div>
 
                 <!-- Password Reset Token -->
                 <input type="hidden" name="token" value="{{ $request->route('token') }}">

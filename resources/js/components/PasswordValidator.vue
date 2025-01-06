@@ -1,6 +1,6 @@
 <template>
     <div class="valign-wrapper custom">
-        <Password class="style-none" :feedback="showFeedback" v-model="passwordValue" placeholder="Password" promptLabel="Choose a password" weakLabel="Too simple" mediumLabel="Average complexity" strongLabel="Complex password" toggleMask >
+        <Password class="style-none" :feedback="showFeedback" v-model="passwordValue" :placeholder="placeholder" promptLabel="Choose a password" weakLabel="Too simple" mediumLabel="Average complexity" strongLabel="Complex password" toggleMask >
             <template #header v-if="showFeedback">
 <!--                <h6>Pick a password</h6>-->
                 <p class="mt-2">Suggestions</p>
@@ -23,6 +23,10 @@
         showFeedback: {
             type: Boolean,
             default: true,
+        },
+        placeholder: {
+            type: String,
+            default: 'Password',
         },
     });
 

@@ -34,29 +34,31 @@
                 <div class="row">
                     <!-- Email Address -->
                     <div class="col s12">
-                        <input id="email" type="email" placeholder="Email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" class="validate">
+                        <input id="email" type="email" placeholder="{{ __("Email") }}" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" class="validate">
                     </div>
 
                     <div class="col s12">
-                        <password-validator :show-feedback="false"></password-validator>
+                        <password-validator :show-feedback="false" placeholder="{{ __("Password") }}"></password-validator>
 {{--                        <input id="password" type="password" placeholder="Password" name="password" required autocomplete="current-password" class="validate">--}}
                     </div>
                 </div>
 
                 <!-- Remember Me -->
-                <div class="row">
-                    <div class="col s12">
-                        <label>
-                            <input type="checkbox" name="remember" />
-                            <span>{{ __('Remember me') }}</span>
-                        </label>
-                    </div>
-                </div>
+{{--                <div class="row">--}}
+{{--                    <div class="col s12">--}}
+{{--                        <label>--}}
+{{--                            <input type="checkbox" name="remember" />--}}
+{{--                            <span>{{ __('Remember me') }}</span>--}}
+{{--                        </label>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
                 <div class="row">
                     <div class="col s12">
                         @if(Route::has('password.request'))
-                            <a href="{{ route('password.request') }}" class="blue-text text-darken-2">{{ __('Forgot your password?') }}</a>
+                            <a href="{{ route('password.request') }}" class="blue-text text-darken-2">
+                                {{ __('Forgot your password?') }}
+                            </a>
                         @endif
                     </div>
                 </div>

@@ -11,7 +11,7 @@
 
             <div class="row">
                 <div class="col s12 right-align">
-                    <a href="{{ route('login') }}" class="blue-text">{{ __('Already registered?') }}</a>
+                    <a href="{{ route('login') }}" class="blue-text">{{ __('Login') }}</a>
                 </div>
             </div>
 
@@ -21,7 +21,7 @@
                 <div class="row">
                     <!-- Name -->
                     <div class="col s12">
-                        <input id="name" type="text" placeholder="Name" name="name" value="{{ old('name') }}" required autofocus autocomplete="name" class="validate">
+                        <input id="name" type="text" placeholder="{{ __("Name") }}" name="name" value="{{ old('name') }}" required autofocus autocomplete="name" class="validate">
                         @error('name')
                             <span class="helper-text red-text">{{ $message }}</span>
                         @enderror
@@ -29,7 +29,7 @@
 
                     <!-- Email Address -->
                     <div class="col s12">
-                        <input id="email" type="email" placeholder="Email" name="email" value="{{ old('email') }}" required autocomplete="username" class="validate">
+                        <input id="email" type="email" placeholder="{{ __("Email") }}" name="email" value="{{ old('email') }}" required autocomplete="username" class="validate">
 
                         @error('email')
                             <span class="helper-text red-text">{{ $message }}</span>
@@ -38,7 +38,7 @@
 
                     <!-- Password -->
                     <div class="col s12">
-                        <password-validator :show-header="false"></password-validator>
+                        <password-validator :show-header="false" placeholder="{{ __("Password") }}"></password-validator>
                         @error('password')
                             <span class="helper-text red-text">{{ $message }}</span>
                         @enderror
@@ -46,7 +46,7 @@
 
                     <!-- Confirm Password -->
                     <div class="col s12">
-                        <input id="password_confirmation" type="password" placeholder="Confirm Password" name="password_confirmation" required autocomplete="new-password" class="validate">
+                        <input id="password_confirmation" type="password" placeholder="{{ __("Confirm Password") }}" name="password_confirmation" required autocomplete="new-password" class="validate">
                         @error('password_confirmation')
                         <span class="helper-text red-text">{{ $message }}</span>
                         @enderror

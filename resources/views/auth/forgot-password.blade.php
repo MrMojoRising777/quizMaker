@@ -7,7 +7,7 @@
                 <img src="{{ asset('svg/logoipsum.svg') }}" alt="Icon">
             </div>
 
-            <div class="card-title fs-28 fw-600 center-align">Reset Password</div>
+            <div class="card-title fs-28 fw-600 center-align">{{ __("Forgot your password?") }}</div>
 
             <div class="">
                 {{ __("Enter your email address below and we'll send you a link to reset your password.") }}
@@ -34,7 +34,7 @@
 
                 <div class="left-align mt-4">
                     <button type="submit" class="btn light-green-bg">
-                        {{ __('Email Password Reset Link') }}
+                        {{ __('Send') }}
                     </button>
                 </div>
             </form>

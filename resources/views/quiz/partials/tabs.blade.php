@@ -7,7 +7,7 @@
         @endforeach
 
         <li class="tab col s2">
-            <a href="#newRoundModal" class="modal-trigger text-yellow">Add</a>
+            <a href="#newRoundModal" class="modal-trigger text-yellow">{{ __("Add") }}</a>
         </li>
     </ul>
 </div>

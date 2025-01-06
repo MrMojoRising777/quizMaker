@@ -13,7 +13,7 @@
                     @include('quiz.partials.tabs')
                 </div>
 
-                <button type="submit" class="btn waves-effect waves-light">Submit</button>
+                <button type="submit" class="btn waves-effect waves-light">{{ __("Save") }}</button>
             </form>
         </div>
     </div>

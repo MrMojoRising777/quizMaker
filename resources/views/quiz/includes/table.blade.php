@@ -1,11 +1,11 @@
 <table class="striped responsive-table">
     <thead>
     <tr>
-        <th>Naam</th>
-        <th>Rounds</th>
-        <th>Times played</th>
-        <th>Reviews</th>
-        <th>Actions</th>
+        <th>{{ __("Name") }}</th>
+        <th>{{ __("Rounds") }}</th>
+        <th>{{ __("Times played") }}</th>
+        <th>{{ __("Reviews") }}</th>
+        <th>{{ __("Actions") }}</th>
     </tr>
     </thead>
     <tbody>
@@ -34,7 +34,7 @@
         </tr>
     @empty
         <tr>
-            <td colspan="4">No quizzes where found</td>
+            <td colspan="4">{{ __("No quizzes where found.") }}</td>
         </tr>
     @endforelse
     </tbody>
@@ -49,13 +49,14 @@
                 const quizId = $(this).data('id');
 
                 Swal.fire({
-                    title: 'Are you sure?',
-                    text: "This action cannot be undone!",
+                    title: '{{ __("Are you sure?") }}',
+                    text: "{{ __("This action cannot be undone!") }}",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
                     cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Yes, delete it!',
+                    confirmButtonText: '{{ __("Yes, delete it!") }}',
+                    cancelButtonText: '{{ __("Cancel") }}'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({

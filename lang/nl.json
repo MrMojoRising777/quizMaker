@@ -1,0 +1,52 @@
+{
+    "Login": "Inloggen",
+    "No account?": "Nog geen account?",
+    "Forgot your password?": "Wachtwoord vergeten?",
+    "Register": "Registreer",
+
+    "Name": "Naam",
+    "Email": "E-mail",
+    "Password": "Wachtwoord",
+    "Confirm Password": "Bevestig Wachtwoord",
+
+    "Enter your email address below and we'll send you a link to reset your password.": "Vul hieronder je e-mailadres in, dan sturen we je een link om je wachtwoord te resetten.",
+    "Send": "Versturen",
+
+    "New Password": "Nieuw Wachtwoord",
+
+    "Log Out": "Uitloggen",
+    "Profile": "Profiel",
+
+    "Quizzes": "Quizzen",
+
+    "Create quiz": "Quiz maken",
+    "Personal": "Persoonlijk",
+    "Rounds": "Rondes",
+    "Times played": "Keren gespeeld",
+    "Reviews": "Recensies",
+    "Actions": "Acties",
+    "No quizzes where found.": "Er werden geen quizzen gevonden.",
+
+    "Are you sure?": "Ben je zeker?",
+    "This action cannot be undone!": "Deze actie kan niet ongedaan worden!",
+    "Yes, delete it!": "Ja, verwijderen!",
+    "Cancel": "Annuleren",
+
+    "Leave a review": "Schrijf een recensie",
+    "Rating": "Beoordeling",
+    "Review": "Recensie",
+    "Close": "Sluiten",
+    "Submit Review": "Recensie Versturen",
+
+    "Round title": "Ronde titel",
+    "Save": "Opslaan",
+    "Description": "Omschrijving",
+    "Create": "Aanmaken",
+    "Give the quiz a name": "Geef de quiz een naam",
+    "Add": "Toevoegen",
+    "Question": "Vraag",
+    "Answer": "Antwoord",
+    "Caption or Question": "Omschrijving of Vraag",
+    "Image": "Afbeelding",
+    "Word": "Woord"
+}

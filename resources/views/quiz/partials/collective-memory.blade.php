@@ -19,7 +19,7 @@
                 onchange="previewImage(this, 'preview{{ $i }}')">
 
             <input type="text"
-                placeholder="Caption or Question {{ $i }}"
+                placeholder="{{ __("Caption or Question") }} {{ $i }}"
                 @if(isset($question->text)) value="{{ $question->text }}" @endif
                 name="rounds[{{ $round->id }}][questions][{{ $i }}][text]">
 
@@ -39,7 +39,7 @@
 
             @for($j = 1; $j <= 5; $j++)
                 <input type="text"
-                       placeholder="Photo {{ $i }} Woord {{ $j }}"
+                       placeholder="{{ __("Image") }} {{ $i }} {{ __("Word") }} {{ $j }}"
                        value="{{ $answers[$j - 1]->text ?? '' }}"
                        name="rounds[{{ $round->id }}][answers][{{ $i }}][]">
             @endfor

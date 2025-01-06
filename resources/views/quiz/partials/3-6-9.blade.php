@@ -6,7 +6,7 @@
 
         <li class="collection-item">
             <input
-                placeholder="Vraag {{ $i }}"
+                placeholder="{{ __("Question") }} {{ $i }}"
                 value="{{ $question?->text ?? '' }}"
                 type="text"
                 name="rounds[{{ $round->id }}][questions][{{ $i }}]">
@@ -15,13 +15,13 @@
 
             @forelse($answers as $answer)
                 <input
-                    placeholder="Antwoord {{ $i }}"
+                    placeholder="{{ __("Answer") }} {{ $i }}"
                     value="{{ $answer->text ?? '' }}"
                     type="text"
                     name="rounds[{{ $round->id }}][answers][{{ $i }}]">
             @empty
                 <input
-                    placeholder="Antwoord {{ $i }}"
+                    placeholder="{{ __("Answer") }} {{ $i }}"
                     type="text"
                     name="rounds[{{ $round->id }}][answers][{{ $i }}]">
             @endforelse
