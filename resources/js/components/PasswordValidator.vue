@@ -1,14 +1,14 @@
 <template>
     <div class="valign-wrapper custom">
-        <Password class="style-none" :feedback="showFeedback" v-model="passwordValue" :placeholder="placeholder" promptLabel="Choose a password" weakLabel="Too simple" mediumLabel="Average complexity" strongLabel="Complex password" toggleMask >
+        <Password class="style-none" :feedback="showFeedback" v-model="passwordValue" :placeholder="placeholder" :promptLabel="$t('Choose a password')" :weakLabel="$t('Too simple')" :mediumLabel="$t('Average complexity')" :strongLabel="$t('Complex password')" toggleMask >
             <template #header v-if="showFeedback">
 <!--                <h6>Pick a password</h6>-->
-                <p class="mt-2">Suggestions</p>
+                <p class="mt-2">{{ $t('Suggestions') }}</p>
                 <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
-                    <li>At least one lowercase</li>
-                    <li>At least one uppercase</li>
-                    <li>At least one numeric</li>
-                    <li>Minimum 8 characters</li>
+                    <li>{{ $t('At least one lowercase')}}</li>
+                    <li>{{ $t('At least one uppercase')}}</li>
+                    <li>{{ $t('At least one numeric')}}</li>
+                    <li>{{ $t('Minimum 8 characters')}}</li>
                 </ul>
             </template>
         </Password>
