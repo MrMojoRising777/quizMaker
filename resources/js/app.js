@@ -37,6 +37,7 @@ const messages = {
 };
 
 const i18n = createI18n({
+    legacy: false,
     locale: document.documentElement.lang || 'en', // Default locale
     messages,
 });

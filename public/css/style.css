@@ -98,3 +98,15 @@
 .style-normal input::placeholder {
     font-style: normal;
 }
+
+
+/* Select2 */
+/*.select2-container {*/
+/*    width: 100% !important;  !* Match the select width *!*/
+/*    display: inline-block;   !* Make the container inline *!*/
+/*}*/
+
+/*!* Ensure the dropdown is as wide as the select *!*/
+/*.select2-dropdown {*/
+/*    width: auto !important;*/
+/*}*/

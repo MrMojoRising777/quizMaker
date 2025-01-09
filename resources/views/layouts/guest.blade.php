@@ -18,10 +18,24 @@
 
     <!-- Materialize CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet">
 </head>
 <body>
     <div id="app">
         <main class="height-100vh">
+            <div class="row">
+                <div class="col s2">
+                    <select id="language-selector" class="browser-default">
+                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                            <option value="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}" data-icon="fi fi-{{ $localeCode === 'en' ? 'gb' : $localeCode }}">
+                                {{ $properties['native'] }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
             <div class="row">
                 @if(Route::is('login') || Route::is('register'))
                     <div class="col m7 l8">
@@ -42,9 +56,33 @@
     <!-- Materialize JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             M.updateTextFields();
+
+            $('#language-selector').select2({
+                templateResult: formatState,
+                templateSelection: formatState,
+                minimumResultsForSearch: Infinity,
+                dropdownAutoWidth : true,
+                width: 'auto',
+            });
+
+            function formatState(state) {
+                if (!state.id) {
+                    return state.text;
+                }
+                const icon = $(state.element).data('icon');
+                const $state = $(
+                    `<span><span class="${icon}" style="margin-right: 8px;"></span>${state.text}</span>`
+                );
+                return $state;
+            }
         });
     </script>
 </body>
