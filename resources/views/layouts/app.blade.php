@@ -18,7 +18,9 @@
 </head>
 <body class="">
     <div class="min-height">
-        @include('layouts.navigation')
+        @if(!Route::is('quiz.hosted.*'))
+            @include('layouts.navigation')
+        @endif
 
         <div id="app">
             <main>

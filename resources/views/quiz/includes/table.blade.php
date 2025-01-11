@@ -28,7 +28,9 @@
             <td>
                 <a class="orange-text" href="{{ route('quiz.show', ['quiz' => $quiz->id]) }}"><i class="material-icons">edit</i></a>
                 <a class="red-text delete-quiz" href="javascript:void(0);" data-id="{{ $quiz->id }}"><i class="material-icons">delete</i></a>
-                <a class="light-blue-text host-quiz" href="javascript:void(0);" data-id="{{ $quiz->id }}"><i class="material-icons">cloud_upload</i></a>
+                @if($quiz->isHostable())
+                    <a class="light-blue-text host-quiz" href="javascript:void(0);" data-id="{{ $quiz->id }}"><i class="material-icons">cloud_upload</i></a>
+                @endif
                 <a class="light-yellow-text modal-trigger" href="#reviewModal"><i class="material-icons">rate_review</i></a>
             </td>
         </tr>
@@ -40,11 +42,26 @@
     </tbody>
 </table>
 
-@include('modals.quiz.reviewModal')
+{{--@include('modals.quiz.reviewModal')--}}
 
 @push('scripts')
     <script>
         $(document).ready(function () {
+            $('.host-quiz').on('click', function () {
+                const quizId = $(this).data('id');
+
+                // New window: players screen
+                $.get('{{ route("quiz.hosted.waiting-room", ":id") }}'.replace(':id', quizId), function (response){
+                    const playerScreenWindow = window.open('', 'PlayerScreen', 'width=800,height=600,resizable,scrollbars=yes,status=no');
+                    playerScreenWindow.document.open();
+                    playerScreenWindow.document.write(response.html);
+                    playerScreenWindow.document.close();
+
+                    // Same window: host screen
+                    window.location.href = '{{ route("quiz.hosted.waiting-room", ":id") }}'.replace(':id', quizId);
+                });
+            });
+
             $('.delete-quiz').on('click', function () {
                 const quizId = $(this).data('id');
 

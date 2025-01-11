@@ -48,5 +48,10 @@
     "Answer": "Antwoord",
     "Caption or Question": "Omschrijving of Vraag",
     "Image": "Afbeelding",
-    "Word": "Woord"
+    "Word": "Woord",
+
+    "Quiz created!": "Quiz aangemaakt!",
+    "Round data saved successfully!": "Ronde succesvol opgeslagen!",
+    "Failed to save round data. Please try again.": "Er liep iets mis. Probeer het later opnieuw.",
+    "Quiz successfully deleted!": "Quiz succesvol verwijderd!"
 }

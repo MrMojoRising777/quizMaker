@@ -38,13 +38,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
 
                 Route::delete('/delete/{quiz}', 'delete')->name('delete');
 
-                Route::get('play/{quiz}/players-screen', 'popupPlayerScreen')->name('player-screen');
+                Route::get('play/{quiz}/waiting-room', 'openWaitingRoom')->name('hosted.waiting-room');
             });
-        });
-
-        // Quizmaster & SA routes
-        Route::group(['middleware' => ['role:Quizmaster|Super Admin']], function () {
-
         });
 
         // Player routes
@@ -58,11 +53,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
             Route::controller(HostedQuizController::class)->prefix('hosted-quiz')->name('hosted-quiz.')->group(function () {
                 Route::get('/{id}/waiting-room', 'showWaitingRoom')->name('waiting-room');
             });
-        });
-
-        // SA routes
-        Route::group(['middleware' => ['role:Super Admin']], function () {
-
         });
     });
 

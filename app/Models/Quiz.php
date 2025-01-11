@@ -33,4 +33,17 @@ class Quiz extends Model
     {
         return $this->reviews()->avg('rating');
     }
+
+    public function isHostable(): bool
+    {
+        foreach ($this->rounds as $round) {
+            foreach ($round->questions as $question) {
+                if ($question->answers->isEmpty()) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 }

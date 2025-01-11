@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\QuizStarted;
 use App\Models\Quiz;
 use App\Models\Round;
 use App\Models\Answer;
@@ -31,7 +32,7 @@ class QuizController extends Controller
             'description' => $request->input('description'),
         ]);
 
-        return view('quiz.custom.edit', compact('quiz'))->with('success', 'Quiz created');
+        return view('quiz.custom.edit', compact('quiz'))->with('success', __('Quiz created!'));
     }
 
     public function show(Quiz $quiz): View
@@ -67,90 +68,71 @@ class QuizController extends Controller
                     continue;
                 }
 
-                $roundType = $round->type;
-                $questions = $roundContent['questions'] ?? [];
-                $answers = $roundContent['answers'] ?? [];
-                $images = $uploadedFiles['rounds'][$roundID]['questions'] ?? [];
+                switch($round->type) {
+                    case '3-6-9':
+                        $round->processThreeSixNine($roundContent);
+                        break;
+                    case 'collective-memory':
 
-                foreach ($questions as $questionKey => $questionData) {
-                    if ($roundType === 'collective-memory') {
-                        $this->processCollectiveMemory($round, $questionKey, $questionData, $images, $answers);
-                    } else {
-                        $this->processDefaultRound($round, $questionKey, $questionData, $images, $answers);
-                    }
+                        $questions = $roundContent['questions'] ?? [];
+                        $answers = $roundContent['answers'] ?? [];
+                        $images = $uploadedFiles['rounds'][$roundID]['questions'] ?? [];
+
+                        foreach ($questions as $questionKey => $questionData) {
+                            $round->processCollectiveMemory($round, $questionKey, $questionData, $images, $answers);
+                        }
+                        break;
+                    default:
+//                        $round->processDefaultRound($round, $questionKey, $questionData, $images, $answers);
+                        break;
                 }
             }
 
-            return redirect()->back()->with(['message' => 'Round data saved successfully!']);
+            session()->flash('success', __('Round data saved successfully!'));
+            return back();
         } catch (\Exception $e) {
             Log::error('Failed to save round data: ' . $e->getMessage());
-            return redirect()->back()->with(['error' => 'Failed to save round data. Please try again.']);
+            session()->flash('error', __('Failed to save round data. Please try again.'));
+            return back();
         }
-    }
-
-    private function processDefaultRound($round, $questionKey, $questionData, $images, $answers): void
-    {
-        $questionText = is_array($questionData) ? ($questionData['text'] ?? null) : $questionData;
-        $hasText = !empty($questionText);
-
-        $file = $images[$questionKey] ?? null;
-        $hasImage = $file instanceof UploadedFile && $file->isValid();
-
-        if (!$hasText && !$hasImage) {
-            return;
-        }
-
-        $question = Question::createOrUpdate($round->id, $questionText);
-
-        $answerText = $answers[$questionKey] ?? null;
-        if (!empty($answerText)) {
-            Answer::createOrUpdate($question->id, $answerText);
-        }
-
-        // Save image if present
-        if ($hasImage) {
-            if($question->file_path) Storage::disk('public')->delete($question->file_path);
-            $filePath = $file->store('uploads/round-images', 'public');
-            $question->update(['file_path' => $filePath]);
-        }
-    }
-
-    private function processCollectiveMemory($round, $questionKey, $questionData, $images, $answers): void
-    {
-        $questionText = $questionData['text'] ?? null;
-        $file = $images[$questionKey] ?? null;
-        $hasText = !empty($questionText);
-        $hasImage = $file instanceof UploadedFile && $file->isValid();
-
-        if (!$hasText && !$hasImage) {
-            return;
-        }
-
-        $question = Question::createOrUpdate($round->id, $questionText);
-
-        if ($hasImage) {
-            $filePath = $file->store('uploads/round-images', 'public');
-            $question->update(['file_path' => $filePath]);
-        }
-
-        if (!empty($answers[$questionKey])) {
-            foreach ($answers[$questionKey] as $keyword) {
-                Answer::createOrUpdate($question->id, $keyword);
-            }
-        }
-    }
-
-    public function popupPlayerScreen()
-    {
-
     }
 
     public function delete(Quiz $quiz): JsonResponse
     {
         $quiz->delete();
         return response()->json([
-            'message' => 'Quiz successfully deleted.',
+            'message' => __('Quiz successfully deleted!'),
             'redirect' => route('quiz.index')
         ]);
+    }
+
+    public function openWaitingRoom(Quiz $quiz): JsonResponse|View
+    {
+        if (request()->ajax()) {
+            // Return JSON response for player screen (popup)
+            $html = view('quiz.hosted.waiting-room', compact('quiz'))->render();
+            return response()->json(['html' => $html]);
+        }
+
+        // Return view for host screen
+        return view('quiz.hosted.waiting-room', compact('quiz'));
+    }
+
+    public function startQuiz(Quiz $quiz)
+    {
+        if (auth()->user()->hasRole(['Quizmaster', 'Super Admin'])) {
+            if ($quiz->is_started) {
+                return response()->json(['status' => 'Quiz already started'], 400);
+            }
+
+            $quiz->update(['is_started' => true, 'started_at' => now()]);
+            $round = $quiz->rounds()->first();
+
+            broadcast(new QuizStarted($quiz->id, $round))->toOthers();
+
+            return response()->json(['status' => 'Quiz started']);
+        }
+
+        return response()->json(['status' => 'Not allowed!'], 403);
     }
 }

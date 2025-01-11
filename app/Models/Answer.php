@@ -22,7 +22,7 @@ class Answer extends Model
     static function createOrUpdate($questionId, $text, $correct = true)
     {
         $new = self::where('question_id', $questionId)->where('text', $text)->firstOrNew();
-        $new->round_id = $questionId;
+        $new->question_id = $questionId;
         $new->text = $text;
         $new->correct = $correct;
         $new->save();
