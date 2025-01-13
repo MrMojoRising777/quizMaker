@@ -12,10 +12,15 @@
     "Enter your email address below and we'll send you a link to reset your password.": "Vul hieronder je e-mailadres in, dan sturen we je een link om je wachtwoord te resetten.",
     "Send": "Versturen",
 
+    "Current Password": "Huidig Wachtwoord",
     "New Password": "Nieuw Wachtwoord",
 
     "Log Out": "Uitloggen",
     "Profile": "Profiel",
+
+    "Profile Information": "Profiel Informatie",
+    "Update Password": "Wachtwoord updaten",
+    "Delete User": "Gebruiker verwijderen",
 
     "Quizzes": "Quizzen",
 

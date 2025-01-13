@@ -1,3 +1,17 @@
+<ul id="dropdown1" class="dropdown-content">
+    <li>
+        <a href="{{ route('profile.edit') }}" class="black-text">
+            {{ __('Profile') }}
+        </a>
+    </li>
+    <li class="divider"></li>
+    <li>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="btn-flat black-text">{{ __('Log Out') }}</button>
+        </form>
+    </li>
+</ul>
 <nav class="nav-wrapper blue-bg">
     <a href="{{ route('dashboard') }}" class="brand-logo ml-5">
         LOGO
@@ -10,10 +24,9 @@
                 </a>
             </li>
             <li>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="btn-flat black-text">{{ __('Log Out') }}</button>
-                </form>
+                <a class="dropdown-trigger" href="#!" data-target="dropdown1">
+                    {{ auth()->user()->name }}<i class="material-icons right">arrow_drop_down</i>
+                </a>
             </li>
         </ul>
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="valign-wrapper custom">
+    <div class="valign-wrapper shadowNone">
         <Password class="style-none" :feedback="showFeedback" v-model="passwordValue" :placeholder="placeholder" :promptLabel="$t('Choose a password')" :weakLabel="$t('Too simple')" :mediumLabel="$t('Average complexity')" :strongLabel="$t('Complex password')" toggleMask >
             <template #header v-if="showFeedback">
 <!--                <h6>Pick a password</h6>-->

@@ -46,6 +46,8 @@
             $('.modal').modal();
 
             $('.tabs').tabs();
+
+            $('.dropdown-trigger').dropdown();
         });
     </script>
 

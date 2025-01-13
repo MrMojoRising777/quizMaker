@@ -22,9 +22,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
 
     Route::middleware('auth')->group(function () {
         Route::controller(ProfileController::class)->prefix('profile')->name('profile.')->group(function () {
-            Route::get('/profile', 'edit')->name('edit');
-            Route::patch('/profile', 'update')->name('update');
-            Route::delete('/profile', 'destroy')->name('destroy');
+            Route::get('/', 'edit')->name('edit');
+            Route::patch('/', 'update')->name('update');
+            Route::post('/profile-image', 'updateProfileImage')->name('updateProfileImage');
+            Route::delete('/', 'destroy')->name('destroy');
         });
 
         // Quizmaster routes

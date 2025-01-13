@@ -6,6 +6,11 @@ import './bootstrap';
 import PrimeVue from 'primevue/config';
 import Aura from '@primevue/themes/lara';
 
+
+import FileUpload from 'primevue/fileupload';
+import CustomFileUpload from "./components/CustomFileUpload.vue";
+
+import Avatar from 'primevue/avatar';
 import Rating from 'primevue/rating';
 import Button from 'primevue/button';
 
@@ -13,7 +18,6 @@ import Password from 'primevue/password';
 import PasswordValidator from "./components/PasswordValidator.vue";
 
 import WaitingRoom from "./components/WaitingRoom.vue";
-import PlayerScreen from './components/PlayerScreen.vue';
 
 const app = createApp({});
 
@@ -28,6 +32,9 @@ app.use(PrimeVue, {
     }
 });
 
+app.component('FileUpload', FileUpload);
+app.component('file-upload', CustomFileUpload)
+app.component('Avatar', Avatar);
 app.component('Rating', Rating);
 app.component('Button', Button);
 
@@ -35,7 +42,6 @@ app.component('Password', Password);
 app.component('password-validator', PasswordValidator);
 
 app.component('waiting-room', WaitingRoom);
-app.component('player-screen', PlayerScreen);
 
 // Language packs
 import {createI18n} from "vue-i18n";
