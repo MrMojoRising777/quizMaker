@@ -7,5 +7,30 @@
     "Choose a password": "Kies een wachtwoord",
     "Too simple": "Te simpel",
     "Average complexity": "Gemiddelde complexiteit",
-    "Complex password": "Complex wachtwoord"
+    "Complex password": "Complex wachtwoord",
+    "auth": {
+        "Login": "Inloggen",
+        "No account?": "Nog geen account?",
+        "Forgot your password?": "Wachtwoord vergeten?",
+        "Register": "Registreer",
+        "Reset Password Text": "Vul hieronder je e-mailadres in, dan sturen we je een link om je wachtwoord te resetten.",
+        "New Password": "Nieuw wachtwoord",
+        "Reset Password": "Wachtwoord resetten"
+    },
+    "toasts": {
+        "Reset Link": "Reset link verstuurd!"
+    },
+    "actions": {
+        "Send": "Verstuur",
+        "Create quiz": "Quiz maken"
+    },
+    "fields": {
+        "Name": "Naam",
+        "Email": "E-mail",
+        "Password": "Wachtwoord",
+        "Confirm Password": "Bevestig Wachtwoord"
+    },
+    "dashboard": {
+        "Personal": "Persoonlijk"
+    }
 }

@@ -9,7 +9,7 @@
                         <div class="col s12">
                             <div class="card off-white-bg">
                                 <div class="card-content">
-                                    @include('quiz.includes.table')
+{{--                                    @include('quiz.includes.table')--}}
                                 </div>
                                 <div class="card-action">
                                     <a href="#newQuizModal" class="btn blue-bg modal-trigger">{{ __("Create quiz") }}</a>
@@ -46,5 +46,5 @@
         </div>
     </div>
 
-    @include('modals.quiz.newQuizModal')
+{{--    @include('modals.quiz.newQuizModal')--}}
 @endsection
