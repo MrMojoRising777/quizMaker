@@ -23,7 +23,7 @@
                             v-model="form.email"
                             id="email"
                             type="email"
-                            placeholder="Email"
+                            :placeholder="$t('fields.Email')"
                             required
                             autofocus
                             autocomplete="username"
@@ -34,7 +34,7 @@
                         <password-validator
                             v-model="form.password"
                             :show-feedback="false"
-                            placeholder="Password"
+                            :placeholder="$t('fields.Password')"
                         />
                     </div>
                 </div>

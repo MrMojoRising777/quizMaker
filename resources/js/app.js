@@ -28,6 +28,7 @@ import WaitingRoom from './components/WaitingRoom.vue';
 // Language packs
 import { createI18n } from 'vue-i18n';
 import nlMessages from './lang/nl.json';
+import enMessages from './lang/en.json';
 
 // Create the Inertia app
 createInertiaApp({
@@ -68,6 +69,7 @@ createInertiaApp({
         // Configure i18n
         const messages = {
             nl: nlMessages,
+            en: enMessages,
         };
         const i18n = createI18n({
             legacy: false,

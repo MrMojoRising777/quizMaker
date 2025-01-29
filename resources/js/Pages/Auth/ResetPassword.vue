@@ -23,16 +23,6 @@
                 </div>
 
                 <div>
-<!--                    <input-->
-<!--                        id="password"-->
-<!--                        type="password"-->
-<!--                        v-model="form.password"-->
-<!--                        :placeholder=-->
-<!--                        required-->
-<!--                        autocomplete="new-password"-->
-<!--                        class="validate"-->
-<!--                    />-->
-
                     <password-validator
                         v-model="form.password"
                         :show-feedback="true"
