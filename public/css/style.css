@@ -111,3 +111,12 @@
     align-items: normal !important;
     justify-content: inherit !important;
 }
+
+/* PrimeVue overwrite */
+.p-menubar {
+    border-radius: 0 !important;
+}
+
+.p-menu {
+    min-width: 7.5rem !important;
+}

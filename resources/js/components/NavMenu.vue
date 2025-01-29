@@ -1,30 +1,25 @@
 <template>
     <div class="card">
         <Menubar :model="items">
-            <template #start>
-                <div class="image-container">
-                    <img src="/public/svg/logoipsum.svg" alt="Icon" />
-                </div>
+            <template #item="{ item }">
+                <span :class="item.icon" />
+                <Link :href="item.href" class="blue-text">{{ item.label }}</Link>
             </template>
-            <template #item="{ item, props, hasSubmenu, root }">
-                <a
-                    v-if="!item.action"
-                    :href="item.href"
-                    class="flex items-center"
-                    v-bind="props.action"
-                >
-                    <span>{{ item.label }}</span>
-                    <Badge v-if="item.badge" :class="{ 'ml-auto': !root, 'ml-2': root }" :value="item.badge" />
-                    <span v-if="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-                    <i v-if="hasSubmenu" :class="['pi pi-angle-down ml-auto', { 'pi-angle-down': root, 'pi-angle-right': !root }]"></i>
-                </a>
-                <button
-                    v-else
-                    @click="item.action"
-                    class="flex items-center p-menubar-item-link"
-                >
-                    <span>{{ item.label }}</span>
-                </button>
+
+            <template #end>
+                <Avatar
+                    image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
+                    class="mr-2 cursor-pointer"
+                    size="xlarge"
+                    shape="circle"
+                    @click="toggleMenu"
+                />
+
+                <Menu
+                    :model="userSubItems"
+                    popup
+                    ref="menuRef"
+                />
             </template>
         </Menubar>
     </div>
@@ -32,9 +27,31 @@
 
 <script setup>
 import { ref } from 'vue';
-import {router} from "@inertiajs/vue3";
+import { Link, router } from '@inertiajs/vue3';
 
-const items = ref([
+import Menubar from 'primevue/menubar';
+import Menu from 'primevue/menu';
+import Avatar from 'primevue/avatar';
+
+function handleLogout() {
+    router.post('/logout');
+}
+
+const userSubItems = [
+    {
+        label: 'Profile',
+        icon: 'pi pi-user-edit',
+        href: '/profile/edit',
+    },
+    { separator: true },
+    {
+        label: 'Logout',
+        icon: 'pi pi-sign-out',
+        command: handleLogout,
+    }
+];
+
+const items = [
     {
         label: 'Home',
         icon: 'pi pi-home',
@@ -43,31 +60,18 @@ const items = ref([
     {
         label: 'Quizzes',
         icon: 'pi pi-pencil',
-        href: '/quiz/index',
+        href: route('quiz.index'),
     },
-    {
-        label: 'User',
-        icon: 'pi pi-user',
-        items: [
-            {
-                label: 'Profile',
-                icon: 'pi pi-user-edit',
-                href: '/profile/edit',
-            },
-            {
-                separator: true,
-            },
-            {
-                label: 'Logout',
-                icon: 'pi pi-sign-out',
-                href: '',
-                action: handleLogout,
-            },
-        ],
-    },
-]);
+];
 
-function handleLogout() {
-    router.post('/logout');
+const menuRef = ref(null);
+function toggleMenu(event) {
+    menuRef.value?.toggle(event);
 }
 </script>
+
+<style scoped>
+.cursor-pointer {
+    cursor: pointer;
+}
+</style>

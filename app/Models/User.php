@@ -45,7 +45,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function quiz(): HasMany
+    public function quizzes(): HasMany
     {
         return $this->hasMany(Quiz::class);
     }

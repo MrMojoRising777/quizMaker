@@ -2,6 +2,8 @@ import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 
+import "primeicons/primeicons.css";
+
 // Import PrimeVue and theme
 import PrimeVue from 'primevue/config';
 import Aura from '@primevue/themes/lara';
@@ -15,6 +17,8 @@ import Password from 'primevue/password';
 import Menubar from 'primevue/menubar';
 import Badge from 'primevue/badge';
 import InputText from 'primevue/inputtext';
+import DataTable from "primevue/datatable";
+import Column from 'primevue/column';
 
 // Custom components
 import CustomFileUpload from './components/CustomFileUpload.vue';
@@ -53,6 +57,8 @@ createInertiaApp({
         app.component('Menubar', Menubar);
         app.component('Badge', Badge);
         app.component('InputText', InputText);
+        app.component('DataTable', DataTable);
+        app.component('Column', Column);
 
         // Register custom components
         app.component('file-upload', CustomFileUpload);
@@ -72,6 +78,8 @@ createInertiaApp({
 
         // Use Inertia plugin
         app.use(plugin);
+
+        app.mixin({ methods: { route }})
 
         // Mount the app
         app.mount(el);

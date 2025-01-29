@@ -14,14 +14,12 @@ Route::get('/inertia', function () {
     return Inertia::render('Home');
 })->name('home');
 
-require __DIR__.'/auth.php';
+Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
 
-//Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
-//
-//    Route::get('/', function () {
-//        return redirect('/dashboard');
-//    });
-//
+    Route::get('/', function () {
+        return redirect('/dashboard');
+    });
+
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->middleware(['auth', 'verified'])
         ->name('dashboard');
@@ -38,8 +36,8 @@ require __DIR__.'/auth.php';
 //
 //        // Quizmaster routes
 //        Route::group(['middleware' => ['role:Quizmaster|Super Admin']], function () {
-//            Route::controller(QuizController::class)->prefix('quiz')->name('quiz.')->group(function () {
-//                Route::get('/', 'index')->name('index');
+            Route::controller(QuizController::class)->prefix('quiz')->name('quiz.')->group(function () {
+                Route::get('/', 'index')->name('index');
 //                Route::get('/create', 'create')->name('create');
 //                Route::get('/view/{quiz}', 'show')->name('show');
 //                Route::post('/store/{quiz}', 'store')->name('store');
@@ -48,7 +46,7 @@ require __DIR__.'/auth.php';
 //                Route::delete('/delete/{quiz}', 'delete')->name('delete');
 //
 //                Route::get('play/{quiz}/waiting-room', 'openWaitingRoom')->name('hosted.waiting-room');
-//            });
+            });
 //        });
 //
 //        // Player routes
@@ -66,5 +64,5 @@ require __DIR__.'/auth.php';
 //    });
 //
 //
-//    require __DIR__.'/auth.php';
-//});
+    require __DIR__.'/auth.php';
+});

@@ -54,7 +54,7 @@
         </div>
     </div>
 </template>
-
+<!-- TODO guest layout, fix lang en.json, login form style -->
 <script>
 import { ref } from 'vue'
 import { router, Link } from '@inertiajs/vue3'

@@ -15,13 +15,17 @@ use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Inertia\Inertia;
 
 class QuizController extends Controller
 {
-    public function index(): View
+    public function index(): \Inertia\Response
     {
-        $quizzes = Auth::user()->quiz;
-        return view('quiz.index', compact('quizzes'));
+        $quizzes = Auth::user()->quizzes;
+        return Inertia::render('Quizzes', [
+            'quizzes' => $quizzes,
+        ]);
+//        return view('quiz.index', compact('quizzes'));
     }
 
     public function create(Request $request): View
