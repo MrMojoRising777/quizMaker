@@ -28,13 +28,12 @@
                 </div>
 
                 <div class="left-align mt-4">
-                    <button
+                    <Button
                         type="submit"
-                        class="btn light-green-bg"
+                        :label="$t('actions.Send')"
+                        :severity="'success'"
                         :disabled="form.processing"
-                    >
-                        {{ $t('actions.Send') }}
-                    </button>
+                    />
                 </div>
             </form>
 
@@ -50,10 +49,14 @@
 
 <script>
 import { ref } from 'vue';
-import { useForm } from '@inertiajs/vue3';
+import {useForm} from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
+import Button from '../../components/Button.vue';
 
 export default {
+    components: {
+        Button,
+    },
     setup() {
         const { t } = useI18n();
         const form = useForm({

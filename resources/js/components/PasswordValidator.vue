@@ -26,6 +26,7 @@
 </template>
 
 <script setup>
+import Password from 'primevue/password';
 import { computed } from 'vue'
 
 const props = defineProps({

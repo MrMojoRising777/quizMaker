@@ -1,21 +1,19 @@
 <template>
     <div class="section">
-        <p v-if="auth.user">Hello, {{ auth.user.name }}!</p>
-
         <div v-if="can('create quiz')">
             <div class="row">
                 <div class="col s12">
                     <div class="card off-white-bg">
                         <div class="card-content">
-                            <Table :quizzes="quizzes"/>
+                            <p v-if="auth.user">Hello, {{ auth.user.name }}!</p>
+<!--                            <Table :quizzes="quizzes"/>-->
                         </div>
                         <div class="card-action">
-                            <button
-                                class="btn blue-bg"
+                            <Button
+                                :severity="'info'"
+                                :label="$t('actions.Create quiz')"
                                 @click="openNewQuizModal"
-                            >
-                                {{ $t('actions.Create quiz') }}
-                            </button>
+                            />
                         </div>
                     </div>
                 </div>
@@ -47,7 +45,11 @@
 
     <Modal v-if="showModal" :show="showModal" title="Create Quiz" @close="closeModal">
         <p>This is the content inside the modal!</p>
-        <button class="btn blue-bg" @click="submitQuiz">Submit</button>
+        <Button
+            :label="$t('actions.Save')"
+            :severity="'info'"
+            @click="submitQuiz"
+        />
     </Modal>
 </template>
 
@@ -55,6 +57,7 @@
 import { Link } from '@inertiajs/vue3';
 import Modal from "../components/Modal.vue";
 import Table from "../components/Table.vue";
+import Button from "../components/Button.vue"
 import AppLayout from "../Layouts/AppLayout.vue";
 
 export default {
@@ -64,6 +67,7 @@ export default {
         Link,
         Modal,
         Table,
+        Button,
     },
     props: {
         quizzes: {

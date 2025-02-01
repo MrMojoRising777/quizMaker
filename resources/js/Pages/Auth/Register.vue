@@ -77,9 +77,11 @@
 
                 <div class="row">
                     <div class="col s12 center-align">
-                        <button type="submit" class="btn light-blue-bg">
-                            {{ $t('auth.Register') }}
-                        </button>
+                        <Button
+                            type="submit"
+                            :label="$t('auth.Register')"
+                            :severity="'info'"
+                        />
                     </div>
                 </div>
             </form>
@@ -90,12 +92,14 @@
 <script>
 import { ref } from "vue";
 import PasswordValidator from "../../components/PasswordValidator.vue";
+import Button from "../../components/Button.vue";
 import { Link, router } from "@inertiajs/vue3";
 
 export default {
     components: {
         Link,
         PasswordValidator,
+        Button,
     },
     setup() {
         const form = ref({

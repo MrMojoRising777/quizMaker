@@ -3,7 +3,7 @@
         <Menubar :model="items">
             <template #item="{ item }">
                 <span :class="item.icon" />
-                <Link :href="item.href" class="blue-text">{{ item.label }}</Link>
+                <Link :href="item.url" class="blue-text">{{ item.label }}</Link>
             </template>
 
             <template #end>
@@ -34,14 +34,14 @@ import Menu from 'primevue/menu';
 import Avatar from 'primevue/avatar';
 
 function handleLogout() {
-    router.post('/logout');
+    router.post(route('logout'));
 }
 
 const userSubItems = [
     {
         label: 'Profile',
         icon: 'pi pi-user-edit',
-        href: '/profile/edit',
+        url: route('profile.edit'),
     },
     { separator: true },
     {
@@ -55,12 +55,12 @@ const items = [
     {
         label: 'Home',
         icon: 'pi pi-home',
-        href: '/dashboard',
+        url: route('dashboard'),
     },
     {
         label: 'Quizzes',
         icon: 'pi pi-pencil',
-        href: route('quiz.index'),
+        url: route('quiz.index'),
     },
 ];
 

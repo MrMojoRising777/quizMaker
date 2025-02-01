@@ -1,0 +1,12 @@
+.p-fileupload-basic {
+    align-items: normal !important;
+    justify-content: inherit !important;
+}
+
+.p-menubar {
+    border-radius: 0 !important;
+}
+
+.p-menu {
+    min-width: 7.5rem !important;
+}

@@ -18,7 +18,9 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
+import { defineProps } from 'vue';
+import DataTable from "primevue/datatable";
+import Column from 'primevue/column';
 
 const props = defineProps({
     quizzes: {

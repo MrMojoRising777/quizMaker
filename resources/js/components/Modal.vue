@@ -3,20 +3,32 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2>{{ title }}</h2>
-                <button @click="closeModal" class="modal-close">×</button>
+                <Button
+                    :label="'×'"
+                    @click="closeModal"
+                    class="modal-close"
+                />
             </div>
             <div class="modal-body">
                 <slot></slot>
             </div>
             <div class="modal-footer">
-                <button class="btn" @click="closeModal">Close</button>
+                <Button
+                    :label="$t('actions.Close')"
+                    class="btn"
+                    @click="closeModal"
+                />
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import Button from '../components/Button.vue';
 export default {
+    components: {
+        Button,
+    },
     props: {
         show: {
             type: Boolean,

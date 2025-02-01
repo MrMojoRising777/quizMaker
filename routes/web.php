@@ -8,12 +8,6 @@ use App\Http\Controllers\QuizController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
-use Inertia\Inertia;
-
-Route::get('/inertia', function () {
-    return Inertia::render('Home');
-})->name('home');
-
 Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
 
     Route::get('/', function () {
@@ -23,17 +17,15 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->middleware(['auth', 'verified'])
         ->name('dashboard');
-//
-////Route::group(['middleware' => ['permission:publish articles']], function () { ... });
-//
-//    Route::middleware('auth')->group(function () {
-//        Route::controller(ProfileController::class)->prefix('profile')->name('profile.')->group(function () {
-//            Route::get('/', 'edit')->name('edit');
-//            Route::patch('/', 'update')->name('update');
-//            Route::post('/profile-image', 'updateProfileImage')->name('updateProfileImage');
-//            Route::delete('/', 'destroy')->name('destroy');
-//        });
-//
+
+    Route::middleware('auth')->group(function () {
+        Route::controller(ProfileController::class)->prefix('profile')->name('profile.')->group(function () {
+            Route::get('/', 'edit')->name('edit');
+            Route::patch('/', 'update')->name('update');
+            Route::post('/profile-image', 'updateProfileImage')->name('updateProfileImage');
+            Route::delete('/', 'destroy')->name('destroy');
+        });
+
 //        // Quizmaster routes
 //        Route::group(['middleware' => ['role:Quizmaster|Super Admin']], function () {
             Route::controller(QuizController::class)->prefix('quiz')->name('quiz.')->group(function () {
@@ -61,8 +53,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
 //                Route::get('/{id}/waiting-room', 'showWaitingRoom')->name('waiting-room');
 //            });
 //        });
-//    });
-//
-//
+    });
+
+
     require __DIR__.'/auth.php';
 });

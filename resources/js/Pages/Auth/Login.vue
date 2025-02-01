@@ -47,23 +47,29 @@
                 </div>
                 <div class="row">
                     <div class="col s12 center-align">
-                        <button type="submit" class="btn light-green-bg">{{ $t('auth.Login') }}</button>
+                        <Button
+                            type="submit"
+                            :severity="'success'"
+                            :label="$t('auth.Login')"
+                        />
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </template>
-<!-- TODO guest layout, fix lang en.json, login form style -->
+<!-- TODO guest layout, login form style -->
 <script>
 import { ref } from 'vue'
 import { router, Link } from '@inertiajs/vue3'
 import PasswordValidator from '../../components/PasswordValidator.vue'
+import Button from '../../components/Button.vue'
 
 export default {
     components: {
         Link,
         PasswordValidator,
+        Button,
     },
     setup() {
         const form = ref({

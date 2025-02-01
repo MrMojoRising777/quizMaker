@@ -17,16 +17,27 @@
         "New Password": "Nieuw wachtwoord",
         "Reset Password": "Wachtwoord resetten"
     },
+    "profile": {
+        "Profile": "Profiel",
+        "Profile Information": "Profiel Informatie",
+        "Update Password": "Wachtwoord Updaten",
+        "Delete Account": "Account Verwijderen",
+        "Verify Email": "Klik hier om een verificatie-email te versturen.",
+        "Verify Email Text": "Een verificatie-email is verzonden naar je email."
+    },
     "toasts": {
         "Reset Link": "Reset link verstuurd!"
     },
     "actions": {
+        "Save": "Opslaan",
         "Send": "Verstuur",
-        "Create quiz": "Quiz maken"
+        "Create quiz": "Quiz maken",
+        "Close": "Sluiten"
     },
     "fields": {
         "Name": "Naam",
         "Email": "E-mail",
+        "Current Password": "Huidig Wachtwoord",
         "Password": "Wachtwoord",
         "Confirm Password": "Bevestig Wachtwoord"
     },

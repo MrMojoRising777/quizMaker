@@ -6,23 +6,13 @@ import "primeicons/primeicons.css";
 
 // Import PrimeVue and theme
 import PrimeVue from 'primevue/config';
+import ConfirmationService from 'primevue/confirmationservice';
 import Aura from '@primevue/themes/lara';
 
 // PrimeVue components
-import FileUpload from 'primevue/fileupload';
-import Avatar from 'primevue/avatar';
 import Rating from 'primevue/rating';
-import Button from 'primevue/button';
-import Password from 'primevue/password';
-import Menubar from 'primevue/menubar';
-import Badge from 'primevue/badge';
-import InputText from 'primevue/inputtext';
-import DataTable from "primevue/datatable";
-import Column from 'primevue/column';
 
 // Custom components
-import CustomFileUpload from './components/CustomFileUpload.vue';
-import PasswordValidator from './components/PasswordValidator.vue';
 import WaitingRoom from './components/WaitingRoom.vue';
 
 // Language packs
@@ -50,20 +40,8 @@ createInertiaApp({
         });
 
         // Register PrimeVue components
-        app.component('FileUpload', FileUpload);
-        app.component('Avatar', Avatar);
         app.component('Rating', Rating);
-        app.component('Button', Button);
-        app.component('Password', Password);
-        app.component('Menubar', Menubar);
-        app.component('Badge', Badge);
-        app.component('InputText', InputText);
-        app.component('DataTable', DataTable);
-        app.component('Column', Column);
 
-        // Register custom components
-        app.component('file-upload', CustomFileUpload);
-        app.component('password-validator', PasswordValidator);
         app.component('waiting-room', WaitingRoom);
 
         // Configure i18n
@@ -80,8 +58,9 @@ createInertiaApp({
 
         // Use Inertia plugin
         app.use(plugin);
-
         app.mixin({ methods: { route }})
+
+        app.use(ConfirmationService);
 
         // Mount the app
         app.mount(el);

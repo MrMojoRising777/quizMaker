@@ -21,6 +21,8 @@
 </template>
 
 <script setup>
+import FileUpload from 'primevue/fileupload';
+import Avatar from 'primevue/avatar';
 import { ref, computed } from "vue";
 
 const props = defineProps({

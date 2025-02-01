@@ -45,9 +45,11 @@
                 </div>
 
                 <div class="right-align">
-                    <button class="btn waves-effect waves-light" type="submit">
-                        {{ $t('auth.Reset Password') }}
-                    </button>
+                    <Button
+                        type="submit"
+                        :label="$t('auth.Reset Password')"
+                        :severity="'success'"
+                    />
                 </div>
             </form>
         </div>
@@ -58,9 +60,13 @@
 import { ref } from 'vue';
 import { router } from '@inertiajs/vue3';
 import PasswordValidator from "../../components/PasswordValidator.vue";
+import Button from "../../components/Button.vue";
 
 export default {
-    components: {PasswordValidator},
+    components: {
+        PasswordValidator,
+        Button,
+    },
     props: {
         token: String,
         email: String,
