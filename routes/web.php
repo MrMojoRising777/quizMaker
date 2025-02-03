@@ -8,7 +8,7 @@ use App\Http\Controllers\QuizController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
-Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
+Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['web']], function() {
 
     Route::get('/', function () {
         return redirect('/dashboard');
