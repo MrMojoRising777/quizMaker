@@ -1,40 +1,42 @@
 <template>
-    <div class="flex flex-col items-center p-6">
-        <Card class="blue-bg">
-            <template #title>
-                {{ $t('profile.Profile') }}
-            </template>
-            <template #content>
-                <div class="space-y-4">
-                    <Card class="blue-bg">
-                        <template #title>
-                            {{ $t('profile.Profile Information') }}
-                        </template>
-                        <template #content>
-                            <UpdateProfileInformationForm :user="user" />
-                        </template>
-                    </Card>
+    <div class="grid">
+        <div class="col-12 items-center">
+            <Card class="blue-bg">
+                <template #title>
+                    {{ $t('profile.Profile') }}
+                </template>
+                <template #content>
+                    <div class="space-y-4">
+                        <Card class="blue-bg">
+                            <template #title>
+                                {{ $t('profile.Profile Information') }}
+                            </template>
+                            <template #content>
+                                <UpdateProfileInformationForm :user="user" />
+                            </template>
+                        </Card>
 
-                    <Card class="blue-bg">
-                        <template #title>
-                            {{ $t('profile.Update Password') }}
-                        </template>
-                        <template #content>
-                            <UpdatePasswordForm />
-                        </template>
-                    </Card>
+                        <Card class="blue-bg">
+                            <template #title>
+                                {{ $t('profile.Update Password') }}
+                            </template>
+                            <template #content>
+                                <UpdatePasswordForm />
+                            </template>
+                        </Card>
 
-                    <Card class="blue-bg">
-                        <template #title>
-                            {{ $t('profile.Delete Account') }}
-                        </template>
-                        <template #content>
-                            <DeleteAccountForm />
-                        </template>
-                    </Card>
-                </div>
-            </template>
-        </Card>
+                        <Card class="blue-bg">
+                            <template #title>
+                                {{ $t('profile.Delete Account') }}
+                            </template>
+                            <template #content>
+                                <DeleteAccountForm />
+                            </template>
+                        </Card>
+                    </div>
+                </template>
+            </Card>
+        </div>
     </div>
 </template>
 

@@ -1,92 +1,79 @@
 <template>
-    <div class="card">
-        <div class="card-content">
-            <div class="image-container">
-                <img src="/public/svg/logoipsum.svg" alt="Icon" />
-            </div>
+    <div class="grid">
+        <div class="col-6 col-offset-3 mt-4">
+            <Card>
+                <template #content>
+                    <div class="image-container">
+                        <img src="/public/svg/logoipsum.svg" alt="Icon" />
+                    </div>
 
-            <div class="card-title fs-28 fw-600 center-align">
-                {{ $t("auth.Forgot your password?") }}
-            </div>
+                    <div class="card-title fs-28 fw-600 text-center">
+                        {{ $t("auth.Forgot your password?") }}
+                    </div>
 
-            <p class="center-align">
-                {{ $t("auth.Reset Password Text") }}
-            </p>
+                    <p class="text-center">
+                        {{ $t("auth.Reset Password Text") }}
+                    </p>
 
-            <form @submit.prevent="submit">
-                <div>
-                    <input
-                        id="email"
-                        type="email"
-                        v-model="form.email"
-                        :placeholder="$t('fields.Email')"
-                        required
-                        autofocus
-                        class="validate"
-                    />
-                    <span v-if="errors.email" class="red-text">{{ errors.email }}</span>
-                </div>
+                    <form @submit.prevent="submit" class="mt-5">
+                        <InputText
+                            id="email"
+                            type="email"
+                            v-model="form.email"
+                            :label="$t('fields.Email')"
+                            required
+                            autofocus
+                            class="validate w-full"
+                        />
+                        <span v-if="errors.email" class="red-text">{{ errors.email }}</span>
 
-                <div class="left-align mt-4">
-                    <Button
-                        type="submit"
-                        :label="$t('actions.Send')"
-                        :severity="'success'"
-                        :disabled="form.processing"
-                    />
-                </div>
-            </form>
+                        <div class="text-center mt-4">
+                            <Button
+                                type="submit"
+                                :label="$t('actions.Send')"
+                                :severity="'success'"
+                                :disabled="form.processing"
+                            />
+                        </div>
+                    </form>
 
-            <div
-                v-if="toastMessage"
-                class="toast-message green lighten-4 green-text text-darken-4"
-            >
-                {{ toastMessage }}
-            </div>
+                    <div v-if="toastMessage" class="toast-message green lighten-4 green-text text-darken-4">
+                        {{ toastMessage }}
+                    </div>
+                </template>
+            </Card>
         </div>
     </div>
 </template>
 
-<script>
-import { ref } from 'vue';
-import {useForm} from '@inertiajs/vue3';
-import { useI18n } from 'vue-i18n';
-import Button from '../../components/Button.vue';
+<script setup>
+import { ref } from 'vue'
+import {useForm} from '@inertiajs/vue3'
+import { useI18n } from 'vue-i18n'
+import Button from '../../components/Button.vue'
+import InputText from '../../components/InputText.vue'
+import Card from 'primevue/card'
 
-export default {
-    components: {
-        Button,
-    },
-    setup() {
-        const { t } = useI18n();
-        const form = useForm({
-            email: '',
-        });
+const { t } = useI18n()
+const form = useForm({
+    email: '',
+})
 
-        const errors = ref({});
-        const toastMessage = ref(null);
+const errors = ref({})
+const toastMessage = ref(null)
 
-        const submit = () => {
-            form.post('/forgot-password', {
-                onSuccess: (response) => {
-                    errors.value = {};
-                    toastMessage.value = form.data.status || t('toasts.Reset Link');
-                    setTimeout(() => (toastMessage.value = null), 3000);
-                },
-                onError: (err) => {
-                    errors.value = err;
-                },
-            });
-        };
-
-        return {
-            form,
-            errors,
-            toastMessage,
-            submit,
-        };
-    },
-};
+const submit = () => {
+    form.post('/forgot-password', {
+        onSuccess: (response) => {
+            errors.value = {}
+            toastMessage.value = form.data.status || t('toasts.Reset Link')
+            setTimeout(() => (toastMessage.value = null), 3000)
+        },
+        onError: (err) => {
+            errors.value = err
+        },
+    })
+}
 </script>
 
 <style scoped>

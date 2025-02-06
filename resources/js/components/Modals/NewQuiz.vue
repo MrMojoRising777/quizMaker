@@ -1,43 +1,61 @@
-<!-- NewQuizModal.vue -->
 <template>
-    <Modal :show="show" :title="$t('Give the quiz a name')" @close="closeModal">
+    <Modal :show="show" :title="$t('Give the quiz a name')">
         <form @submit.prevent="createQuiz">
-            <div class="row">
-                <div class="col s12">
-                    <input type="text" v-model="quizName" placeholder="$t('Name')" required />
+            <div class="grid">
+                <div class="col-12">
+                    <InputText
+                        type="text"
+                        v-model="quizName"
+                        :label="$t('Name')"
+                        required
+                    />
                 </div>
 
-                <div class="col s12">
-                    <textarea v-model="quizDescription" placeholder="$t('Description')" class="materialize-textarea" required></textarea>
+                <div class="col-12">
+                    <Textarea
+                        :label="$t('Description')"
+                        v-model="quizDescription"
+                        required
+                    />
                 </div>
             </div>
 
-            <button type="submit" class="btn blue-bg">{{ $t('Create') }}</button>
+            <Button
+                type="submit"
+                :severity="'info'"
+                :label="$t('Create')"
+            />
         </form>
     </Modal>
 </template>
 
-<script>
-import Modal from './Modal.vue';
+<script setup>
+import { ref } from "vue";
+import { useForm } from "@inertiajs/vue3";
+import Modal from '../Modal.vue';
+import Button from "../Button.vue"
+import InputText from "../InputText.vue";
+import Textarea from "../Textarea.vue";
 
-export default {
-    components: {
-        Modal
-    },
-    data() {
-        return {
-            show: false,
-            quizName: '',
-            quizDescription: ''
-        };
-    },
-    methods: {
-        closeModal() {
-            this.show = false;
+const show = ref(false);
+const quizName = ref("");
+const quizDescription = ref("");
+const errors = ref(null);
+
+const form = useForm({
+    name: quizName,
+    description: quizDescription,
+});
+
+const createQuiz = () => {
+    form.post(route("quiz.create"), {
+        onError: (err) => {
+            errors.value = err;
         },
-        createQuiz() {
-            // Handle quiz creation logic
-        }
-    }
+        onSuccess: () => {
+            closeModal();
+            form.reset();
+        },
+    });
 };
 </script>

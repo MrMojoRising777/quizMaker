@@ -7,7 +7,9 @@ import "primeicons/primeicons.css";
 // Import PrimeVue and theme
 import PrimeVue from 'primevue/config';
 import ConfirmationService from 'primevue/confirmationservice';
-import Aura from '@primevue/themes/lara';
+import Lara from '@primevue/themes/lara';
+
+import 'primeflex/primeflex.css';
 
 // PrimeVue components
 import Rating from 'primevue/rating';
@@ -25,15 +27,17 @@ createInertiaApp({
     resolve: (name) =>
         resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
     setup({ el, App, props, plugin }) {
-        const app = createApp({ render: () => h(App, props) });
+        const app = createApp({
+            render: () => h(App, props)
+        });
 
         // Configure PrimeVue
         app.use(PrimeVue, {
             theme: {
-                preset: Aura,
+                preset: Lara,
                 options: {
                     prefix: 'p',
-                    darkModeSelector: 'system',
+                    darkModeSelector: 'false',
                     cssLayer: false,
                 },
             },

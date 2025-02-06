@@ -10,3 +10,13 @@
 .p-menu {
     min-width: 7.5rem !important;
 }
+
+.p-textarea {
+    background-color: transparent !important;
+    color: black !important;
+}
+
+.p-password,
+.p-password-input {
+    width: 100% !important;
+}

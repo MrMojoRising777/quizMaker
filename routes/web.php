@@ -30,7 +30,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['we
 //        Route::group(['middleware' => ['role:Quizmaster|Super Admin']], function () {
             Route::controller(QuizController::class)->prefix('quiz')->name('quiz.')->group(function () {
                 Route::get('/', 'index')->name('index');
-//                Route::get('/create', 'create')->name('create');
+                Route::post('/create', 'create')->name('create');
 //                Route::get('/view/{quiz}', 'show')->name('show');
 //                Route::post('/store/{quiz}', 'store')->name('store');
 //                Route::post('/new-round/{quiz}', 'createRound')->name('createRound');

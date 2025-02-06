@@ -1,8 +1,8 @@
 {
     "Suggestions": "Suggestions",
-    "At least one lowercase": "At least one lowercase",
-    "At least one uppercase": "At least one uppercase",
-    "At least one numeric": "At least one numeric",
+    "At least one lowercase": "At least one lowercase letter",
+    "At least one uppercase": "At least one uppercase letter",
+    "At least one numeric": "At least one number",
     "Minimum 8 characters": "Minimum 8 characters",
     "Choose a password": "Choose a password",
     "Too simple": "Too simple",
@@ -10,21 +10,35 @@
     "Complex password": "Complex password",
     "auth": {
         "Login": "Login",
-        "No account?": "No account?",
+        "Got an account?": "Got an account?",
+        "New here?": "New here?",
         "Forgot your password?": "Forgot your password?",
         "Register": "Register",
-        "Reset Password Text": "Enter your email address below and we'll send you a link to reset your password."
+        "Reset Password Text": "Enter your email address below, and we will send you a link to reset your password.",
+        "New Password": "New Password",
+        "Reset Password": "Reset Password"
+    },
+    "profile": {
+        "Profile": "Profile",
+        "Profile Information": "Profile Information",
+        "Update Password": "Update Password",
+        "Delete Account": "Delete Account",
+        "Verify Email": "Click here to send a verification email.",
+        "Verify Email Text": "A verification email has been sent to your email."
     },
     "toasts": {
         "Reset Link": "Reset link sent!"
     },
     "actions": {
+        "Save": "Save",
         "Send": "Send",
-        "Create quiz": "Create quiz"
+        "Create quiz": "Create quiz",
+        "Close": "Close"
     },
     "fields": {
         "Name": "Name",
         "Email": "Email",
+        "Current Password": "Current Password",
         "Password": "Password",
         "Confirm Password": "Confirm Password"
     },

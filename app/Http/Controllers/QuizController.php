@@ -30,6 +30,7 @@ class QuizController extends Controller
 
     public function create(Request $request): View
     {
+        dd($request->all());
         $quiz = Quiz::firstOrCreate([
             'user_id' => Auth::id(),
             'title' => $request->input('name'),
