@@ -25,24 +25,35 @@ class QuizController extends Controller
         return Inertia::render('Quizzes', [
             'quizzes' => $quizzes,
         ]);
-//        return view('quiz.index', compact('quizzes'));
     }
 
-    public function create(Request $request): View
+    public function create(Request $request): \Inertia\Response
     {
-        dd($request->all());
         $quiz = Quiz::firstOrCreate([
             'user_id' => Auth::id(),
             'title' => $request->input('name'),
+            'type' => $request->input('type'),
             'description' => $request->input('description'),
         ]);
 
-        return view('quiz.custom.edit', compact('quiz'))->with('success', __('Quiz created!'));
+        if($request->input('type') === 'custom') {
+            return Inertia::render('Quizzes/CustomQuiz', [
+                'quiz' => $quiz,
+            ]);
+        }
+
+        $quiz->prepareRounds();
+
+        return Inertia::render('Quizzes/Show', [
+            'quiz' => $quiz,
+        ]);
     }
 
-    public function show(Quiz $quiz): View
+    public function show(Quiz $quiz): \Inertia\Response
     {
-        return view('quiz.custom.edit', compact('quiz'));
+        return Inertia::render('Quizzes/Show', [
+            'quiz' => $quiz->load('rounds.questions.answers'),
+        ]);
     }
 
     public function createRound(Quiz $quiz, Request $request): jsonResponse
@@ -63,43 +74,44 @@ class QuizController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        try {
-            $roundsData = $request->input('rounds', []);
-            $uploadedFiles = $request->allFiles();
-
-            foreach ($roundsData as $roundID => $roundContent) {
-                $round = Round::find($roundID);
-                if (!$round) {
-                    continue;
-                }
-
-                switch($round->type) {
-                    case '3-6-9':
-                        $round->processThreeSixNine($roundContent);
-                        break;
-                    case 'collective-memory':
-
-                        $questions = $roundContent['questions'] ?? [];
-                        $answers = $roundContent['answers'] ?? [];
-                        $images = $uploadedFiles['rounds'][$roundID]['questions'] ?? [];
-
-                        foreach ($questions as $questionKey => $questionData) {
-                            $round->processCollectiveMemory($round, $questionKey, $questionData, $images, $answers);
-                        }
-                        break;
-                    default:
-//                        $round->processDefaultRound($round, $questionKey, $questionData, $images, $answers);
-                        break;
-                }
-            }
-
-            session()->flash('success', __('Round data saved successfully!'));
-            return back();
-        } catch (\Exception $e) {
-            Log::error('Failed to save round data: ' . $e->getMessage());
-            session()->flash('error', __('Failed to save round data. Please try again.'));
-            return back();
-        }
+        dd($request->all());
+//        try {
+//            $roundsData = $request->input('rounds', []);
+//            $uploadedFiles = $request->allFiles();
+//
+//            foreach ($roundsData as $roundID => $roundContent) {
+//                $round = Round::find($roundID);
+//                if (!$round) {
+//                    continue;
+//                }
+//
+//                switch($round->type) {
+//                    case '3-6-9':
+//                        $round->processThreeSixNine($roundContent);
+//                        break;
+//                    case 'collective-memory':
+//
+//                        $questions = $roundContent['questions'] ?? [];
+//                        $answers = $roundContent['answers'] ?? [];
+//                        $images = $uploadedFiles['rounds'][$roundID]['questions'] ?? [];
+//
+//                        foreach ($questions as $questionKey => $questionData) {
+//                            $round->processCollectiveMemory($round, $questionKey, $questionData, $images, $answers);
+//                        }
+//                        break;
+//                    default:
+////                        $round->processDefaultRound($round, $questionKey, $questionData, $images, $answers);
+//                        break;
+//                }
+//            }
+//
+//            session()->flash('success', __('Round data saved successfully!'));
+//            return back();
+//        } catch (\Exception $e) {
+//            Log::error('Failed to save round data: ' . $e->getMessage());
+//            session()->flash('error', __('Failed to save round data. Please try again.'));
+//            return back();
+//        }
     }
 
     public function delete(Quiz $quiz): JsonResponse

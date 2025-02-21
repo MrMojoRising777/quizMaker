@@ -6,6 +6,8 @@
             :rows="5"
             :rowsPerPageOptions="[5, 10, 20, 50]"
             tableStyle="min-width: 50rem"
+            @rowClick="viewQuiz"
+            class="pointer"
         >
             <!-- TODO: set 'times played', 'rated' & actions -->
             <Column field="title" header="Title" style="width: 20%"></Column>
@@ -21,6 +23,7 @@
 import { defineProps } from 'vue';
 import DataTable from "primevue/datatable";
 import Column from 'primevue/column';
+import { router } from "@inertiajs/vue3";
 
 const props = defineProps({
     quizzes: {
@@ -28,4 +31,9 @@ const props = defineProps({
         default: () => [],
     },
 })
+
+const viewQuiz = (event) => {
+    const quiz = event.data;
+    router.get(route('quiz.show', { quiz: quiz.id }));
+};
 </script>

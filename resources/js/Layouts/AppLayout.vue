@@ -12,11 +12,17 @@
     </div>
 </template>
 
-<script>
-import NavMenu from "../components/NavMenu.vue";
-export default {
-    components: {
-        NavMenu,
-    }
-}
+<script setup>
+// import { provide } from 'vue';
+import NavMenu from "../Components/NavMenu.vue";
+
+// const getImageUrl = (file_path) => {
+//     if (file_path && !file_path.startsWith('http')) {
+//         return `/storage/questions/${file_path}`;
+//     }
+//     return file_path; // Return the file_path if it's already a full URL
+// };
+//
+// // Make getImageUrl available to all child components
+// provide('getImageUrl', getImageUrl);
 </script>

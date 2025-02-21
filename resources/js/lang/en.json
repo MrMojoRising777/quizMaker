@@ -40,9 +40,14 @@
         "Email": "Email",
         "Current Password": "Current Password",
         "Password": "Password",
-        "Confirm Password": "Confirm Password"
+        "Confirm Password": "Confirm Password",
+        "Question": "Question",
+        "Answer": "Answer",
+        "Description": "Description",
+        "Image": "Image"
     },
     "dashboard": {
         "Personal": "Personal"
-    }
+    },
+    "Give the quiz a name": "Give the quiz a name"
 }

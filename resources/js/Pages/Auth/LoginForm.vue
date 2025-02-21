@@ -38,9 +38,9 @@
 <script setup>
 import { toRefs } from 'vue'
 import { Link } from '@inertiajs/vue3'
-import InputText from '../../components/InputText.vue'
-import PasswordValidator from '../../components/PasswordValidator.vue'
-import Button from '../../components/Button.vue'
+import InputText from '../../Components/InputText.vue'
+import PasswordValidator from '../../Components/PasswordValidator.vue'
+import Button from '../../Components/Button.vue'
 
 const props = defineProps({
     loginForm: {

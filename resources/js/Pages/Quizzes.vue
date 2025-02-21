@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Table from "../components/Table.vue";
+import Table from "../Components/Table.vue";
 import AppLayout from "../Layouts/AppLayout.vue";
 
 export default {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\ImageHelper;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,12 +50,16 @@ class ProfileController extends Controller
         ]);
 
         $user = Auth::user();
-        $path = $request->file('image')->store('avatars', 'public');
 
-        $user->avatar = $path;
-        $user->save();
+        $path = ImageHelper::saveImage($request->file('image'));
 
-        return redirect()->back()->with('success', 'Profile image updated successfully!');
+        if ($path) {
+            $user->avatar = $path;
+            $user->save();
+            return redirect()->back()->with('success', 'Profile image updated successfully!');
+        }
+
+        return redirect()->back()->with('error', 'Failed to update profile image.');
     }
 
     /**

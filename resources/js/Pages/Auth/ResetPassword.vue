@@ -71,9 +71,9 @@
 <script setup>
 import { ref } from 'vue';
 import { router } from '@inertiajs/vue3';
-import PasswordValidator from "../../components/PasswordValidator.vue";
-import Button from "../../components/Button.vue";
-import InputText from '../../components/InputText.vue';
+import PasswordValidator from "../../Components/PasswordValidator.vue";
+import Button from "../../Components/Button.vue";
+import InputText from '../../Components/InputText.vue';
 import Card from 'primevue/card';
 
 const props = defineProps({

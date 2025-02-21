@@ -76,7 +76,7 @@ import { useForm } from '@inertiajs/vue3'
 
 // PrimeVue or your own components
 import Card from 'primevue/card'
-import Button from '../../components/Button.vue'
+import Button from '../../Components/Button.vue'
 
 // Child forms
 import LoginForm from './LoginForm.vue'
@@ -110,7 +110,7 @@ const expandedCard = ref('login')
  * Methods to submit the forms
  */
 const submitLogin = async () => {
-    loginForm.post('/login', {
+    loginForm.post(route('login'), {
         onError: (err) => {
             errors.value = err
         },

@@ -24,6 +24,7 @@
 import FileUpload from 'primevue/fileupload';
 import Avatar from 'primevue/avatar';
 import { ref, computed } from "vue";
+import { router } from '@inertiajs/vue3';
 
 const props = defineProps({
     avatarPath: {
@@ -35,10 +36,7 @@ const props = defineProps({
 const defaultImage = 'https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png';
 
 const avatarUrl = computed(() => {
-    if (!props.avatarPath) {
-        return null;
-    }
-    return props.avatarPath;
+    return props.avatarPath || null;
 });
 
 const preview = ref(null);
@@ -54,7 +52,6 @@ async function onFileSelect(event) {
 
     selectedFile.value = file;
 
-    // Show a local preview (optional)
     const reader = new FileReader();
     reader.onload = (e) => {
         preview.value = e.target.result;
@@ -64,16 +61,15 @@ async function onFileSelect(event) {
     const formData = new FormData();
     formData.append('image', file);
 
-    try {
-        const response = await axios.post('/profile/profile-image', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
-
-        console.log('Image updated successfully', response.data);
-    } catch (error) {
-        console.error('Failed to update image:', error);
-    }
+    router.post(route('profile.updateProfileImage'), formData, {
+        preserveScroll: true,
+        forceFormData: true,
+        onSuccess: () => {
+            console.log('Image updated successfully');
+        },
+        onError: (errors) => {
+            console.error('Failed to update image:', errors);
+        }
+    });
 }
 </script>

@@ -15,7 +15,7 @@ import 'primeflex/primeflex.css';
 import Rating from 'primevue/rating';
 
 // Custom components
-import WaitingRoom from './components/WaitingRoom.vue';
+import WaitingRoom from './Components/WaitingRoom.vue';
 
 // Language packs
 import { createI18n } from 'vue-i18n';

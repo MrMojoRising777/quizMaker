@@ -11,6 +11,7 @@ class Quiz extends Model
     protected $fillable = [
         'user_id',
         'title',
+        'type',
         'description',
     ];
 
@@ -45,5 +46,26 @@ class Quiz extends Model
         }
 
         return true;
+    }
+
+    public function prepareRounds()
+    {
+        $rounds = [
+            '3-6-9',
+            'Open Deur',
+//            'Puzzel',
+//            'Collectief Geheugen',
+//            'Finale',
+        ];
+
+        foreach($rounds as $round) {
+            $devSlug = strtolower(str_replace(' ', '_', $round));
+
+            Round::create([
+                'quiz_id' => $this->id,
+                'title' => $round,
+                'dev_slug' => $devSlug,
+            ]);
+        }
     }
 }

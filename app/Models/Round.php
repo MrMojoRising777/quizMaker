@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
+
+use Illuminate\Support\Facades\Log;
 
 class Round extends Model
 {
@@ -36,14 +37,41 @@ class Round extends Model
 
     public function processThreeSixNine(array $data): void
     {
-        $questions = array_filter($data['questions'] ?? []);
-        $answers = $data['answers'] ?? [];
+        $questions = array_filter($data['questions'] ?? [], function ($question) {
+            return !empty($question['text']) && !empty($question['answer']);
+        });
 
-        foreach ($questions as $key => $text) {
+        foreach ($questions as $questionData) {
+            $text = $questionData['text'];
+            $answer = $questionData['answer'];
+
             $question = Question::createOrUpdate($this->id, $text);
 
-            foreach (array_filter((array)($answers[$key] ?? [])) as $keyword) {
-                Answer::createOrUpdate($question->id, $keyword);
+            if (!empty($answer)) {
+                Answer::createOrUpdate($question->id, $answer);
+            }
+        }
+    }
+
+    public function processOpenDeur(array $data): void
+    {
+        $questions = array_filter($data['questions'] ?? [], function ($question) {
+            return !empty($question['text']) && !empty($question['answers']);
+        });
+
+        foreach ($questions as $questionData) {
+            $text = $questionData['text'];
+            $filePath = !empty($questionData['image'])
+                ? ImageHelper::saveImage($questionData['image'], 'questions')
+                : null;
+
+            $question = Question::createOrUpdate($this->id, $text);
+            if ($filePath) {
+                $question->update(['file_path' => $filePath]);
+            }
+
+            foreach (array_filter($questionData['answers']) as $answer) {
+                Answer::createOrUpdate($question->id, $answer);
             }
         }
     }
@@ -72,31 +100,4 @@ class Round extends Model
             }
         }
     }
-
-//    private function processDefaultRound($round, $questionKey, $questionData, $images, $answers): void
-//    {
-//        $questionText = is_array($questionData) ? ($questionData['text'] ?? null) : $questionData;
-//        $hasText = !empty($questionText);
-//
-//        $file = $images[$questionKey] ?? null;
-//        $hasImage = $file instanceof UploadedFile && $file->isValid();
-//
-//        if (!$hasText && !$hasImage) {
-//            return;
-//        }
-//
-//        $question = Question::createOrUpdate($round->id, $questionText);
-//
-//        $answerText = $answers[$questionKey] ?? null;
-//        if (!empty($answerText)) {
-//            Answer::createOrUpdate($question->id, $answerText);
-//        }
-//
-//        // Save image if present
-//        if ($hasImage) {
-//            if($question->file_path) Storage::disk('public')->delete($question->file_path);
-//            $filePath = $file->store('uploads/round-images', 'public');
-//            $question->update(['file_path' => $filePath]);
-//        }
-//    }
 }

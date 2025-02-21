@@ -1,6 +1,10 @@
 <template>
     <FloatLabel variant="on">
-        <InputText :id="inputId" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" v-bind="$attrs" />
+        <InputText
+            :id="inputId"
+            v-model="inputValue"
+            v-bind="$attrs"
+        />
         <label :for="inputId">{{ label }}</label>
     </FloatLabel>
 </template>
@@ -8,9 +12,10 @@
 <script>
 import FloatLabel from 'primevue/floatlabel';
 import InputText from 'primevue/inputtext';
-import {defineComponent} from 'vue';
+import { defineComponent, computed } from 'vue';
 
 export default defineComponent({
+    inheritAttrs: false, // Ensure $attrs works properly
     components: {
         FloatLabel,
         InputText,
@@ -27,5 +32,13 @@ export default defineComponent({
         },
     },
     emits: ['update:modelValue'],
+    setup(props, {emit}) {
+        const inputValue = computed({
+            get: () => props.modelValue,
+            set: (value) => emit('update:modelValue', value),
+        });
+
+        return {inputValue};
+    },
 });
 </script>

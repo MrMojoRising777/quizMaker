@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\RoundController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -27,19 +28,24 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['we
         });
 
 //        // Quizmaster routes
-//        Route::group(['middleware' => ['role:Quizmaster|Super Admin']], function () {
+        Route::group(['middleware' => ['role:Quizmaster|Super Admin']], function () {
             Route::controller(QuizController::class)->prefix('quiz')->name('quiz.')->group(function () {
                 Route::get('/', 'index')->name('index');
                 Route::post('/create', 'create')->name('create');
-//                Route::get('/view/{quiz}', 'show')->name('show');
-//                Route::post('/store/{quiz}', 'store')->name('store');
+                Route::get('/view/{quiz}', 'show')->name('show');
+                Route::post('/store/{quiz}', 'store')->name('store');
 //                Route::post('/new-round/{quiz}', 'createRound')->name('createRound');
 //
 //                Route::delete('/delete/{quiz}', 'delete')->name('delete');
 //
 //                Route::get('play/{quiz}/waiting-room', 'openWaitingRoom')->name('hosted.waiting-room');
             });
-//        });
+
+            Route::controller(RoundController::class)->prefix('round')->name('rounds.')->group(function () {
+                Route::post('/{round}/3-6-9/store', 'store')->name('store.369');
+                Route::post('/{round}/open-deur/store', 'storeOpenDeur')->name('store.open-deur');
+            });
+        });
 //
 //        // Player routes
 //        Route::group(['middleware' => ['role:Player|Super Admin']], function () {

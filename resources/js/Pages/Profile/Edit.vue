@@ -1,13 +1,13 @@
 <template>
     <div class="grid">
         <div class="col-12 items-center">
-            <Card class="blue-bg">
+            <Card>
                 <template #title>
                     {{ $t('profile.Profile') }}
                 </template>
                 <template #content>
                     <div class="space-y-4">
-                        <Card class="blue-bg">
+                        <Card>
                             <template #title>
                                 {{ $t('profile.Profile Information') }}
                             </template>
@@ -16,7 +16,7 @@
                             </template>
                         </Card>
 
-                        <Card class="blue-bg">
+                        <Card>
                             <template #title>
                                 {{ $t('profile.Update Password') }}
                             </template>
@@ -25,7 +25,7 @@
                             </template>
                         </Card>
 
-                        <Card class="blue-bg">
+                        <Card>
                             <template #title>
                                 {{ $t('profile.Delete Account') }}
                             </template>
@@ -43,9 +43,9 @@
 <script>
 import Card from 'primevue/card';
 import AppLayout from "../../Layouts/AppLayout.vue";
-import UpdatePasswordForm from "../../components/profile/UpdatePasswordForm.vue";
-import UpdateProfileInformationForm from "../../components/profile/UpdateProfileInformationForm.vue";
-import DeleteAccountForm from "../../components/profile/DeleteAccountForm.vue";
+import UpdatePasswordForm from "../../Components/Profile/UpdatePasswordForm.vue";
+import UpdateProfileInformationForm from "../../Components/Profile/UpdateProfileInformationForm.vue";
+import DeleteAccountForm from "../../Components/Profile/DeleteAccountForm.vue";
 
 export default {
     name: "Edit",

@@ -50,8 +50,8 @@
 import { ref } from 'vue'
 import {useForm} from '@inertiajs/vue3'
 import { useI18n } from 'vue-i18n'
-import Button from '../../components/Button.vue'
-import InputText from '../../components/InputText.vue'
+import Button from '../../Components/Button.vue'
+import InputText from '../../Components/InputText.vue'
 import Card from 'primevue/card'
 
 const { t } = useI18n()
