@@ -114,7 +114,7 @@ const can = (permission) => auth.value?.permissions?.includes(permission) || fal
 const hasRole = (role) => auth.value?.roles?.includes(role) || false;
 
 const createQuiz = () => {
-    form.post(route('quiz.create'), {
+    form.post(route('quizzes.create'), {
         onError: (err) => {
             errors.value = err
         },

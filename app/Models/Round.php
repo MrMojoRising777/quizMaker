@@ -15,10 +15,20 @@ class Round extends Model
         'quiz_id',
         'title',
         'dev_slug',
-        'type'
+        'type',
+        'order',
     ];
 
     public const ROUND_TYPES = 'round.types';
+
+    public static function booted(): void
+    {
+        static::deleting(function ($round) {
+            $round->questions->each(function ($question) {
+                $question->delete();
+            });
+        });
+    }
 
     public static function getRoundTypes(): array
     {
@@ -69,6 +79,57 @@ class Round extends Model
             if ($filePath) {
                 $question->update(['file_path' => $filePath]);
             }
+
+            foreach (array_filter($questionData['answers']) as $answer) {
+                Answer::createOrUpdate($question->id, $answer);
+            }
+        }
+    }
+
+    public function processPuzzel(array $data): void
+    {
+        $questions = array_filter($data['questions'] ?? [], function ($question) {
+            return !empty($question['text']) && !empty($question['answers']);
+        });
+
+        foreach ($questions as $questionData) {
+            $text = $questionData['text'];
+
+            $question = Question::createOrUpdate($this->id, $text);
+
+            foreach (array_filter($questionData['answers']) as $answer) {
+                Answer::createOrUpdate($question->id, $answer);
+            }
+        }
+    }
+
+    public function processIngelijst(array $data): void
+    {
+        $questions = array_filter($data['questions'] ?? [], function ($question) {
+            return !empty($question['text']) && !empty($question['answers']);
+        });
+
+        foreach ($questions as $questionData) {
+            $text = $questionData['text'];
+
+            $question = Question::createOrUpdate($this->id, $text);
+
+            foreach (array_filter($questionData['answers']) as $answer) {
+                Answer::createOrUpdate($question->id, $answer);
+            }
+        }
+    }
+
+    public function processFinale(array $data): void
+    {
+        $questions = array_filter($data['questions'] ?? [], function ($question) {
+            return !empty($question['text']) && !empty($question['answers']);
+        });
+
+        foreach ($questions as $questionData) {
+            $text = $questionData['text'];
+
+            $question = Question::createOrUpdate($this->id, $text);
 
             foreach (array_filter($questionData['answers']) as $answer) {
                 Answer::createOrUpdate($question->id, $answer);

@@ -16,4 +16,19 @@ class RoundController extends Controller
     {
         $round->processOpenDeur($request->all());
     }
+
+    public function storePuzzel(Round $round, Request $request)
+    {
+        $round->processPuzzel($request->all());
+    }
+
+    public function storeIngelijst(Round $round, Request $request)
+    {
+        $round->processIngelijst($request->all());
+    }
+
+    public function storeFinale(Round $round, Request $request)
+    {
+        $round->processFinale($request->all());
+    }
 }

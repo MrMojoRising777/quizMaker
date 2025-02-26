@@ -19,7 +19,7 @@
     <div class="container">
         <ul class="right hide-on-med-and-down">
             <li>
-                <a href="{{ route('quiz.index') }}" class="black-text {{ request()->routeIs('quiz.index') ? 'active' : '' }}">
+                <a href="{{ route('quizzes.index') }}" class="black-text {{ request()->routeIs('quiz.index') ? 'active' : '' }}">
                     {{ __("Quizzes") }}
                 </a>
             </li>

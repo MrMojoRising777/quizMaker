@@ -29,14 +29,14 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['we
 
 //        // Quizmaster routes
         Route::group(['middleware' => ['role:Quizmaster|Super Admin']], function () {
-            Route::controller(QuizController::class)->prefix('quiz')->name('quiz.')->group(function () {
+            Route::controller(QuizController::class)->prefix('quizzes')->name('quizzes.')->group(function () {
                 Route::get('/', 'index')->name('index');
                 Route::post('/create', 'create')->name('create');
                 Route::get('/view/{quiz}', 'show')->name('show');
                 Route::post('/store/{quiz}', 'store')->name('store');
 //                Route::post('/new-round/{quiz}', 'createRound')->name('createRound');
 //
-//                Route::delete('/delete/{quiz}', 'delete')->name('delete');
+                Route::delete('/delete/{quiz}', 'delete')->name('delete');
 //
 //                Route::get('play/{quiz}/waiting-room', 'openWaitingRoom')->name('hosted.waiting-room');
             });
@@ -44,6 +44,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['we
             Route::controller(RoundController::class)->prefix('round')->name('rounds.')->group(function () {
                 Route::post('/{round}/3-6-9/store', 'store')->name('store.369');
                 Route::post('/{round}/open-deur/store', 'storeOpenDeur')->name('store.open-deur');
+                Route::post('/{round}/puzzel/store', 'storePuzzel')->name('store.puzzel');
+                Route::post('/{round}/ingelijst/store', 'storeIngelijst')->name('store.ingelijst');
+                Route::post('/{round}/finale/store', 'storeFinale')->name('store.finale');
             });
         });
 //

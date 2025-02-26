@@ -60,7 +60,7 @@ const items = [
     {
         label: 'Quizzes',
         icon: 'pi pi-pencil',
-        url: route('quiz.index'),
+        url: route('quizzes.index'),
     },
 ];
 

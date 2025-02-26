@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('dev_slug');
             $table->enum('type', config('round.types'));
+            $table->integer('order');
             $table->timestamps();
         });
     }

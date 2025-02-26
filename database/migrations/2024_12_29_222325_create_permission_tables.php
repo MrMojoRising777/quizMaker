@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 return new class extends Migration
 {
@@ -118,6 +120,45 @@ return new class extends Migration
         app('cache')
             ->store(config('permission.cache.store') != 'default' ? config('permission.cache.store') : null)
             ->forget(config('permission.cache.key'));
+
+        $permissions = [
+            'create quiz',
+            'edit quiz',
+            'delete quiz',
+            'host quiz',
+            'play quiz',
+            'review quiz',
+        ];
+
+        foreach ($permissions as $permission) {
+            Permission::firstOrCreate(['name' => $permission, 'guard_name' => 'web']);
+        }
+
+        $superAdmin = Role::firstOrCreate(['name' => 'Super Admin', 'guard_name' => 'web']);
+        $quizhost = Role::firstOrCreate(['name' => 'Quizmaster', 'guard_name' => 'web']);
+        $player = Role::firstOrCreate(['name' => 'Player', 'guard_name' => 'web']);
+
+        $superAdmin->givePermissionTo(Permission::all());
+
+        $quizhost->givePermissionTo([
+            'create quiz',
+            'edit quiz',
+            'delete quiz',
+            'host quiz',
+        ]);
+
+        $player->givePermissionTo([
+            'play quiz',
+            'review quiz'
+        ]);
+
+        $admin = \App\Models\User::create([
+            'name' => 'MrMojo',
+            'email' => 'alexander.goyens@gmail.com',
+            'password' => bcrypt('alexander'),
+        ]);
+
+        $admin->assignRole('Super Admin');
     }
 
     /**

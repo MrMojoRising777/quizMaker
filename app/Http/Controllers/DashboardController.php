@@ -14,7 +14,7 @@ class DashboardController extends Controller
             'quizzes' => $quizzes,
             'routes' => [
                 'home' => route('dashboard'),
-                'quizIndex' => route('quiz.index'),
+                'quizIndex' => route('quizzes.index'),
             ]
         ]);
     }

@@ -6,6 +6,7 @@ import "primeicons/primeicons.css";
 
 // Import PrimeVue and theme
 import PrimeVue from 'primevue/config';
+import ToastService from 'primevue/toastservice';
 import ConfirmationService from 'primevue/confirmationservice';
 import Lara from '@primevue/themes/lara';
 
@@ -65,6 +66,7 @@ createInertiaApp({
         app.mixin({ methods: { route }})
 
         app.use(ConfirmationService);
+        app.use(ToastService);
 
         // Mount the app
         app.mount(el);

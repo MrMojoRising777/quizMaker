@@ -44,10 +44,21 @@
         "Question": "Question",
         "Answer": "Answer",
         "Description": "Description",
-        "Image": "Image"
+        "Image": "Image",
+        "Keyword": "Keyword"
     },
     "dashboard": {
         "Personal": "Personal"
     },
-    "Give the quiz a name": "Give the quiz a name"
+    "Give the quiz a name": "Give the quiz a name",
+    "messages": {
+        "noQuizzes": "No quizzes available. Please add some quizzes to get started!"
+    },
+    "th": {
+        "Title": "Title",
+        "Rounds": "Rounds",
+        "Times Played": "Times Played",
+        "Rated": "Rated",
+        "Actions": "Actions"
+    }
 }

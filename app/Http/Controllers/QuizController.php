@@ -22,12 +22,12 @@ class QuizController extends Controller
     public function index(): \Inertia\Response
     {
         $quizzes = Auth::user()->quizzes;
-        return Inertia::render('Quizzes', [
+        return Inertia::render('Quizzes/Index', [
             'quizzes' => $quizzes,
         ]);
     }
 
-    public function create(Request $request): \Inertia\Response
+    public function create(Request $request): RedirectResponse
     {
         $quiz = Quiz::firstOrCreate([
             'user_id' => Auth::id(),
@@ -37,16 +37,14 @@ class QuizController extends Controller
         ]);
 
         if($request->input('type') === 'custom') {
-            return Inertia::render('Quizzes/CustomQuiz', [
-                'quiz' => $quiz,
-            ]);
+//            return Inertia::render('Quizzes/CustomQuiz', [
+//                'quiz' => $quiz,
+//            ]);
         }
 
         $quiz->prepareRounds();
 
-        return Inertia::render('Quizzes/Show', [
-            'quiz' => $quiz,
-        ]);
+        return redirect()->route('quizzes.show', ['quiz' => $quiz->id]);
     }
 
     public function show(Quiz $quiz): \Inertia\Response
@@ -56,71 +54,10 @@ class QuizController extends Controller
         ]);
     }
 
-    public function createRound(Quiz $quiz, Request $request): jsonResponse
-    {
-        $devSlug = strtolower(str_replace(' ', '_', $request->input('title')));
-
-        Round::create(
-            $request->only(['title', 'type']) + [
-                'quiz_id' => $quiz->id,
-                'dev_slug' => $devSlug,
-            ]
-        );
-
-        $html = view('quiz.partials.tabs', compact('quiz'))->render();
-
-        return response()->json(['html' => $html]);
-    }
-
-    public function store(Request $request): RedirectResponse
-    {
-        dd($request->all());
-//        try {
-//            $roundsData = $request->input('rounds', []);
-//            $uploadedFiles = $request->allFiles();
-//
-//            foreach ($roundsData as $roundID => $roundContent) {
-//                $round = Round::find($roundID);
-//                if (!$round) {
-//                    continue;
-//                }
-//
-//                switch($round->type) {
-//                    case '3-6-9':
-//                        $round->processThreeSixNine($roundContent);
-//                        break;
-//                    case 'collective-memory':
-//
-//                        $questions = $roundContent['questions'] ?? [];
-//                        $answers = $roundContent['answers'] ?? [];
-//                        $images = $uploadedFiles['rounds'][$roundID]['questions'] ?? [];
-//
-//                        foreach ($questions as $questionKey => $questionData) {
-//                            $round->processCollectiveMemory($round, $questionKey, $questionData, $images, $answers);
-//                        }
-//                        break;
-//                    default:
-////                        $round->processDefaultRound($round, $questionKey, $questionData, $images, $answers);
-//                        break;
-//                }
-//            }
-//
-//            session()->flash('success', __('Round data saved successfully!'));
-//            return back();
-//        } catch (\Exception $e) {
-//            Log::error('Failed to save round data: ' . $e->getMessage());
-//            session()->flash('error', __('Failed to save round data. Please try again.'));
-//            return back();
-//        }
-    }
-
-    public function delete(Quiz $quiz): JsonResponse
+    public function delete(Quiz $quiz): RedirectResponse
     {
         $quiz->delete();
-        return response()->json([
-            'message' => __('Quiz successfully deleted!'),
-            'redirect' => route('quiz.index')
-        ]);
+        return redirect()->route('quizzes.index')->with('message', __('Quiz successfully deleted!'));
     }
 
     public function openWaitingRoom(Quiz $quiz): JsonResponse|View

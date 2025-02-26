@@ -48,7 +48,7 @@ const form = useForm({
 });
 
 const createQuiz = () => {
-    form.post(route("quiz.create"), {
+    form.post(route("quizzes.create"), {
         onError: (err) => {
             errors.value = err;
         },

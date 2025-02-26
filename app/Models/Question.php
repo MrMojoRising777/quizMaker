@@ -14,6 +14,13 @@ class Question extends Model
         'file_path',
     ];
 
+    public static function booted(): void
+    {
+        static::deleting(function ($question) {
+            $question->answers()->delete();
+        });
+    }
+
     public function round(): BelongsTo
     {
         return $this->belongsTo(Round::class);

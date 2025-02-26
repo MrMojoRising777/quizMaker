@@ -15,6 +15,15 @@ class Quiz extends Model
         'description',
     ];
 
+    public static function booted(): void
+    {
+        static::deleting(function ($quiz) {
+            $quiz->rounds->each(function ($round) {
+                $round->delete();
+            });
+        });
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -48,23 +57,25 @@ class Quiz extends Model
         return true;
     }
 
-    public function prepareRounds()
+    public function prepareRounds(): void
     {
         $rounds = [
             '3-6-9',
             'Open Deur',
-//            'Puzzel',
+            'Puzzel',
+            'Ingelijst',
 //            'Collectief Geheugen',
-//            'Finale',
+            'Finale',
         ];
 
-        foreach($rounds as $round) {
+        foreach($rounds as $index => $round) {
             $devSlug = strtolower(str_replace(' ', '_', $round));
 
             Round::create([
-                'quiz_id' => $this->id,
-                'title' => $round,
-                'dev_slug' => $devSlug,
+                'quiz_id'   => $this->id,
+                'title'     => $round,
+                'dev_slug'  => $devSlug,
+                'order'     => $index + 1,
             ]);
         }
     }

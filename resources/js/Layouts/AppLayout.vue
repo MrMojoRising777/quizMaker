@@ -1,5 +1,8 @@
 <template>
     <div>
+        <Toast />
+        <ConfirmDialog />
+
         <header>
             <NavMenu />
         </header>
@@ -14,6 +17,8 @@
 
 <script setup>
 // import { provide } from 'vue';
+import Toast from 'primevue/toast';
+import ConfirmDialog from 'primevue/confirmdialog';
 import NavMenu from "../Components/NavMenu.vue";
 
 // const getImageUrl = (file_path) => {
