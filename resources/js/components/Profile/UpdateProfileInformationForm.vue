@@ -24,7 +24,6 @@
                         v-model="form.email"
                         :label="$t('fields.Email')"
                         required
-                        class="w-full"
                     />
 
                     <div v-if="user.email_verified_at === null" class="mt-2">

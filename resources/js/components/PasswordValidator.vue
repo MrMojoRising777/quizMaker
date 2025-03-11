@@ -1,7 +1,7 @@
 <template>
     <div class="valign-wrapper shadowNone">
         <Password
-            class="style-none"
+            class="style-none w-full"
             :feedback="showFeedback"
             v-model="internalPassword"
             :placeholder="placeholder"

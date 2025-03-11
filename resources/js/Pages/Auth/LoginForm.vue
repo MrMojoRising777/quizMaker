@@ -9,7 +9,6 @@
                 required
                 autofocus
                 autocomplete="username"
-                class="w-full"
             />
         </div>
 
@@ -19,7 +18,6 @@
                 :label="$t('fields.Password')"
                 :show-feedback="false"
                 :placeholder="$t('fields.Password')"
-                class="w-full"
             />
         </div>
 

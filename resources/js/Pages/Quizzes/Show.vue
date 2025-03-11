@@ -4,11 +4,25 @@
         <template #content>
             <Button
                 severity="danger"
-                label="Delete Quiz"
+                :label="$t('actions.Delete')"
                 @click="confirmDelete"
             />
 
-            <Tabs v-model="activeTab">
+            <Button
+                v-if="canHostQuiz"
+                severity="success"
+                :label="$t('actions.Host')"
+                @click="hostQuiz"
+            />
+
+            <Button
+                v-if="previewWindow"
+                severity="warning"
+                :label="$t('actions.Close')"
+                @click="closePreview"
+            />
+
+            <Tabs :value="activeTab" @update:value="activeTab = $event">
                 <TabList>
                     <Tab v-for="(round, index) in quiz.rounds" :key="round.title" :value="index">
                         {{ round.title }}
@@ -25,7 +39,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { router } from '@inertiajs/vue3';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
@@ -59,6 +73,9 @@ const activeTab = ref(0);
 const toast = useToast();
 const confirm = useConfirm();
 
+const previewWindow = ref(null);
+const isPlayerPreview = ref(false);
+
 const getRoundComponent = (order) => {
     switch (order) {
         case 1: return Round369;
@@ -68,6 +85,51 @@ const getRoundComponent = (order) => {
         case 5: return Finale;
         default: return null;
     }
+};
+
+// Function to determine if all rounds, questions, and answers are filled
+const canHostQuiz = computed(() => {
+    return props.quiz.rounds.every(round =>
+        round.questions.length > 0 &&
+        round.questions.every(question =>
+            question.text.trim() !== "" &&
+            question.answers.length > 0 &&
+            question.answers.every(answer => answer.text.trim() !== "")
+        )
+    );
+});
+
+const hostQuiz = () => {
+    // Open a new window for the host's preview
+    const hostPreviewUrl = route('quizzes.preview-host', { quiz: props.quiz.id, host: true });
+    const hostWindow = window.open(
+        hostPreviewUrl,
+        'hostQuizPreview',
+        'width=800,height=600,left=200,top=200,resizable=yes,scrollbars=yes'
+    );
+
+    // Open the player preview in the current tab using window.location
+    const playerPreviewUrl = route('quizzes.preview-player', { quiz: props.quiz.id });
+    window.location.href = playerPreviewUrl;  // This ensures the current tab navigates correctly
+
+    // Optionally, you can listen for the host window close event and handle window closing
+    hostWindow.onunload = () => {
+        // Handle closing of the host window
+        isPlayerPreview.value = false;
+        router.push(route('quizzes.show', props.quiz.id));  // Revert back to the show route
+    };
+};
+
+// Function to close the preview window manually
+const closePreview = () => {
+    if (previewWindow.value) {
+        previewWindow.value.close();  // Close the host preview window
+        previewWindow.value = null;
+    }
+
+    // Revert back to the show route after closing the preview
+    isPlayerPreview.value = false;
+    router.push(route('quizzes.show', props.quiz.id));
 };
 
 const confirmDelete = () => {

@@ -9,7 +9,6 @@
                 required
                 autofocus
                 autocomplete="name"
-                class="w-full"
             />
         </div>
 
@@ -21,7 +20,6 @@
                 v-model="registerForm.email"
                 required
                 autocomplete="username"
-                class="w-full"
             />
         </div>
 
@@ -30,7 +28,6 @@
                 :show-header="false"
                 :placeholder="$t('fields.Password')"
                 v-model="registerForm.password"
-                class="w-full"
             />
         </div>
 
@@ -42,7 +39,6 @@
                 v-model="registerForm.password_confirmation"
                 required
                 autocomplete="new-password"
-                class="w-full"
             />
         </div>
 

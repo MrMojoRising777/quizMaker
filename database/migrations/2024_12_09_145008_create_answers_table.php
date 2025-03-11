@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('question_id');
             $table->string('text');
-            $table->boolean('correct');
+            $table->boolean('correct')->default(true);
             $table->timestamps();
         });
     }

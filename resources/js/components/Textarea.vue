@@ -5,6 +5,7 @@
             :value="modelValue"
             @input="$emit('update:modelValue', $event.target.value)"
             v-bind="$attrs"
+            class="w-full"
         />
         <label :for="inputId">{{ label }}</label>
     </FloatLabel>

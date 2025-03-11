@@ -2,18 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\AnswerRevealed;
 use App\Events\QuizStarted;
-use App\Models\Quiz;
-use App\Models\Round;
-use App\Models\Answer;
 use App\Models\Question;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\View\View;
-use Illuminate\Support\Facades\Log;
+use App\Models\Quiz;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 
@@ -21,7 +15,7 @@ class QuizController extends Controller
 {
     public function index(): \Inertia\Response
     {
-        $quizzes = Auth::user()->quizzes;
+        $quizzes = Auth::user()->quizzes()->with('rounds')->get();
         return Inertia::render('Quizzes/Index', [
             'quizzes' => $quizzes,
         ]);
@@ -60,16 +54,25 @@ class QuizController extends Controller
         return redirect()->route('quizzes.index')->with('message', __('Quiz successfully deleted!'));
     }
 
-    public function openWaitingRoom(Quiz $quiz): JsonResponse|View
+    public function previewHost(Quiz $quiz): \Inertia\Response
     {
-        if (request()->ajax()) {
-            // Return JSON response for player screen (popup)
-            $html = view('quiz.hosted.waiting-room', compact('quiz'))->render();
-            return response()->json(['html' => $html]);
-        }
+        return Inertia::render('Quizzes/Previews/Host', [
+            'quiz' => $quiz->load('rounds.questions.answers', 'rounds.rules'),
+        ]);
+    }
 
-        // Return view for host screen
-        return view('quiz.hosted.waiting-room', compact('quiz'));
+    public function previewPlayer(Quiz $quiz): \Inertia\Response
+    {
+        return Inertia::render('Quizzes/Previews/Player', [
+            'quiz' => $quiz->load('rounds.questions.answers'),
+            'questionId' => $quiz->rounds[0]->questions[0]->id,
+        ]);
+    }
+
+    public function revealAnswer(Question $question)
+    {
+        broadcast(new AnswerRevealed($question->id));
+        return response()->json(['status' => 'success']);
     }
 
     public function startQuiz(Quiz $quiz)

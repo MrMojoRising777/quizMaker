@@ -1,39 +1,34 @@
 <template>
     <form @submit.prevent="submitAnswers">
         <div class="grid grid-nogutter">
-
             <div v-for="(question, i) in form.questions" :key="i" class="col-6 p-3">
-
-                <label>{{ $t('fields.Image') }}</label>
-
-                <div v-if="question.file_path" class="mt-2">
-                    <img :src="getImageUrl(question.file_path)" alt="Question image" height="100" />
-                </div>
-                <div v-else class="mt-2" @click="triggerUpload(i)" style="cursor: pointer;">
-                    <Skeleton height="100px" />
-                </div>
-                <input
-                    type="file"
-                    accept=".jpg, .jpeg, .png"
-                    style="display: none;"
-                    :id="'image-' + i"
-                    @change="handleImageUpload($event, i)"
-                />
-
-                <InputText
-                    :label="$t('fields.Question') + ' ' + (i + 1)"
-                    v-model="form.questions[i].text"
-                    class="w-full"
-                />
-
-                <div v-for="(answer, j) in form.questions[i].answers" :key="j" class="mb-2">
-                    <InputText
-                        :label="$t('fields.Answer') + ' ' + (j + 1)"
-                        v-model="form.questions[i].answers[j]"
-                        class="w-full"
+                <div class="flex flex-column gap-2">
+                    <div v-if="question.file_path" class="mt-2">
+                        <img :src="getImageUrl(question.file_path)" alt="Question image" height="100" />
+                    </div>
+                    <div v-else class="mt-2" @click="triggerUpload(i)" style="cursor: pointer;">
+                        <Skeleton height="100px" />
+                    </div>
+                    <input
+                        type="file"
+                        accept=".jpg, .jpeg, .png"
+                        style="display: none;"
+                        :id="'image-' + i"
+                        @change="handleImageUpload($event, i)"
                     />
-                </div>
 
+                    <InputText
+                        :label="$t('fields.Question') + ' ' + (i + 1)"
+                        v-model="form.questions[i].text"
+                    />
+
+                    <div v-for="(answer, j) in form.questions[i].answers" :key="j">
+                        <InputText
+                            :label="$t('fields.Answer') + ' ' + (j + 1)"
+                            v-model="form.questions[i].answers[j]"
+                        />
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -56,7 +51,9 @@ import { useForm } from "@inertiajs/vue3";
 import InputText from "../InputText.vue";
 import Button from "../Button.vue";
 import Skeleton from "primevue/skeleton";
+import { useToast } from "primevue/usetoast";
 
+const toast = useToast();
 const props = defineProps({
     round: Object,
 });
@@ -104,7 +101,12 @@ const handleImageUpload = (event, index) => {
 const submitAnswers = () => {
     form.post(route("rounds.store.open-deur", { round: props.round.id }), {
         preserveScroll: true,
-        onSuccess: () => form.reset(),
+        onSuccess: () => {
+            toast.add({ severity: 'success', summary: 'Success', detail: 'Questions saved successfully!', life: 3000 });
+        },
+        onError: (errors) => {
+            toast.add({ severity: 'error', summary: 'Error', detail: 'Failed to save questions.', life: 3000 });
+        },
     });
 };
 </script>

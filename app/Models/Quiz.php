@@ -60,23 +60,59 @@ class Quiz extends Model
     public function prepareRounds(): void
     {
         $rounds = [
-            '3-6-9',
-            'Open Deur',
-            'Puzzel',
-            'Ingelijst',
-//            'Collectief Geheugen',
-            'Finale',
+            '3-6-9' => [
+                'reward_interval' => 3,
+                'reward_value' => 10,
+            ],
+            'Open Deur' => [
+                'reward_value' => 20,
+            ],
+            'Puzzel' => [
+                'reward_value' => 30,
+            ],
+            'Ingelijst' => [
+                'reward_value' => 10,
+            ],
+            'Finale' => [
+                'penalty' => -20,
+            ],
         ];
 
-        foreach($rounds as $index => $round) {
-            $devSlug = strtolower(str_replace(' ', '_', $round));
+        $roundData = [];
+        $ruleData = [];
 
-            Round::create([
+        foreach (array_keys($rounds) as $index => $round) {
+            $roundData[] = [
                 'quiz_id'   => $this->id,
                 'title'     => $round,
-                'dev_slug'  => $devSlug,
                 'order'     => $index + 1,
-            ]);
+                'type'      => strtolower(str_replace(' ', '-', $round)),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
         }
+
+        // Bulk insert rounds
+        Round::insert($roundData);
+
+        // Retrieve inserted rounds
+        $insertedRounds = Round::where('quiz_id', $this->id)->get()->keyBy('title');
+
+        foreach ($rounds as $roundName => $rules) {
+            $roundId = $insertedRounds[$roundName]->id;
+
+            foreach ($rules as $ruleName => $value) {
+                $ruleData[] = [
+                    'round_id'  => $roundId,
+                    'rule_name' => $ruleName,
+                    'value'     => $value,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+            }
+        }
+
+        // Bulk insert rules
+        RoundRule::insert($ruleData);
     }
 }

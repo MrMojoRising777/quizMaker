@@ -7,19 +7,25 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\UploadedFile;
 
-use Illuminate\Support\Facades\Log;
-
 class Round extends Model
 {
     protected $fillable = [
         'quiz_id',
         'title',
-        'dev_slug',
         'type',
         'order',
+        'seconds',
     ];
 
-    public const ROUND_TYPES = 'round.types';
+    public const ROUND_TYPES = [
+        '3-6-9',
+        'open-deur',
+        'puzzel',
+        'ingelijst',
+        'galerij',
+        'collectief-geheugen',
+        'finale',
+    ];
 
     public static function booted(): void
     {
@@ -40,6 +46,11 @@ class Round extends Model
         return $this->belongsTo(Quiz::class);
     }
 
+    public function rules(): HasMany
+    {
+        return $this->hasMany(RoundRule::class);
+    }
+
     public function questions(): HasMany
     {
         return $this->hasMany(Question::class);
@@ -52,10 +63,14 @@ class Round extends Model
         });
 
         foreach ($questions as $questionData) {
-            $text = $questionData['text'];
+            $text   = $questionData['text'];
             $answer = $questionData['answer'];
+            $note   = $questionData['note'];
 
-            $question = Question::createOrUpdate($this->id, $text);
+            $question = Question::createOrUpdate($this->id, [
+                'text' => $text,
+                'note' => $note,
+            ]);
 
             if (!empty($answer)) {
                 Answer::createOrUpdate($question->id, $answer);
@@ -120,6 +135,7 @@ class Round extends Model
         }
     }
 
+//    optimize processing rounds, send round type along in array ["finale" => ["questions" => [..], "answers" => [..]]
     public function processFinale(array $data): void
     {
         $questions = array_filter($data['questions'] ?? [], function ($question) {

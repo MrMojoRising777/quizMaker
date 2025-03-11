@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('round_id');
             $table->string('text');
+            $table->longText('note')->nullable();
             $table->string('file_path')->nullable();
             $table->timestamps();
         });

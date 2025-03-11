@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rounds', function (Blueprint $table) {
+        Schema::create('round_rules', function (Blueprint $table) {
             $table->id();
-            $table->integer('quiz_id');
-            $table->string('title');
-            $table->string('type');
-            $table->integer('order');
+            $table->integer('round_id');
+            $table->string('rule_name');
+            $table->integer('value');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rounds');
+        Schema::dropIfExists('round_rules');
     }
 };

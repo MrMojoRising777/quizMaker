@@ -4,6 +4,7 @@
             :id="inputId"
             v-model="inputValue"
             v-bind="$attrs"
+            class="w-full"
         />
         <label :for="inputId">{{ label }}</label>
     </FloatLabel>
@@ -15,7 +16,7 @@ import InputText from 'primevue/inputtext';
 import { defineComponent, computed } from 'vue';
 
 export default defineComponent({
-    inheritAttrs: false, // Ensure $attrs works properly
+    inheritAttrs: false,
     components: {
         FloatLabel,
         InputText,

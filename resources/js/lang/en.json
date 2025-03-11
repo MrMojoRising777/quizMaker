@@ -33,7 +33,15 @@
         "Save": "Save",
         "Send": "Send",
         "Create quiz": "Create quiz",
-        "Close": "Close"
+        "Close": "Close",
+        "Delete": "Delete",
+        "Host": "Host",
+        "Correct": "Correct",
+        "Wrong/Pass": "Wrong/Pass",
+        "Next": "Next",
+        "Previous": "Previous",
+        "Next Round": "Next Round",
+        "Edit Note": "Edit Note"
     },
     "fields": {
         "Name": "Name",
@@ -45,7 +53,8 @@
         "Answer": "Answer",
         "Description": "Description",
         "Image": "Image",
-        "Keyword": "Keyword"
+        "Keyword": "Keyword",
+        "Note": "Enter your note here..."
     },
     "dashboard": {
         "Personal": "Personal"
@@ -60,5 +69,7 @@
         "Times Played": "Times Played",
         "Rated": "Rated",
         "Actions": "Actions"
-    }
+    },
+    "Round": "Round",
+    "Actions": "Actions"
 }

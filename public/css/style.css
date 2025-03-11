@@ -6,6 +6,10 @@
     height: 100vh;
 }
 
+.h-160px {
+    height: 160px !important;
+}
+
 .w-20 {
     width: 20% !important;
 }
@@ -83,7 +87,6 @@
 .fs-28 {
     font-size: 28px !important;
 }
-
 
 .image-container {
     display: flex;

@@ -9,6 +9,7 @@ import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
 import ConfirmationService from 'primevue/confirmationservice';
 import Lara from '@primevue/themes/lara';
+import 'primeflex/themes/primeone-dark.css';
 
 import 'primeflex/primeflex.css';
 
@@ -72,7 +73,7 @@ createInertiaApp({
         app.mount(el);
     },
 }).then(() => {
-    console.log("Inertia app is mounted successfully.");
+    //
 }).catch((error) => {
     console.error("Error mounting Inertia app:", error);
 });

@@ -31,11 +31,15 @@ class Question extends Model
         return $this->hasMany(Answer::class);
     }
 
-    static function createOrUpdate($roundId, $text)
+    static function createOrUpdate($roundId, array $data)
     {
-        $new = self::where('round_id', $roundId)->where('text', $text)->firstOrNew();
-        $new->round_id = $roundId;
-        $new->text = $text;
+        $new = self::where('round_id', $roundId)
+            ->where('text', $data['text'])
+            ->firstOrNew();
+
+        $new->round_id  = $roundId;
+        $new->text      = $data['text'];
+        $new->note      = $data['note'] ?? null;
         $new->save();
 
         return $new;

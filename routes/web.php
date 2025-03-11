@@ -1,11 +1,13 @@
 <?php
 
+use App\Events\AnswerRevealed;
 use App\Http\Controllers\HostedQuizController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\RoundController;
+use http\Client\Request;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -13,6 +15,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['we
 
     Route::get('/', function () {
         return redirect('/dashboard');
+    });
+
+    Route::get('/drop', function () {
+        \App\Models\Question::truncate();
+        \App\Models\Answer::truncate();
     });
 
     Route::get('/dashboard', [DashboardController::class, 'index'])
@@ -27,18 +34,20 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['we
             Route::delete('/', 'destroy')->name('destroy');
         });
 
-//        // Quizmaster routes
+//         Quizmaster routes
         Route::group(['middleware' => ['role:Quizmaster|Super Admin']], function () {
             Route::controller(QuizController::class)->prefix('quizzes')->name('quizzes.')->group(function () {
                 Route::get('/', 'index')->name('index');
                 Route::post('/create', 'create')->name('create');
                 Route::get('/view/{quiz}', 'show')->name('show');
                 Route::post('/store/{quiz}', 'store')->name('store');
-//                Route::post('/new-round/{quiz}', 'createRound')->name('createRound');
-//
+
+                Route::get('/{quiz}/preview-host', 'previewHost')->name('preview-host');
+                Route::get('/{quiz}/preview-player', 'previewPlayer')->name('preview-player');
+
+                Route::post('/{question}/reveal-answer', 'revealAnswer')->name('reveal-answer');
+
                 Route::delete('/delete/{quiz}', 'delete')->name('delete');
-//
-//                Route::get('play/{quiz}/waiting-room', 'openWaitingRoom')->name('hosted.waiting-room');
             });
 
             Route::controller(RoundController::class)->prefix('round')->name('rounds.')->group(function () {
@@ -49,7 +58,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['we
                 Route::post('/{round}/finale/store', 'storeFinale')->name('store.finale');
             });
         });
-//
+
 //        // Player routes
 //        Route::group(['middleware' => ['role:Player|Super Admin']], function () {
 //            // Reviews
