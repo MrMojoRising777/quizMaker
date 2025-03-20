@@ -45,9 +45,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['we
                 Route::get('/{quiz}/preview-host', 'previewHost')->name('preview-host');
                 Route::get('/{quiz}/preview-player', 'previewPlayer')->name('preview-player');
 
-                Route::post('/{question}/reveal-answer', 'revealAnswer')->name('reveal-answer');
-
                 Route::delete('/delete/{quiz}', 'delete')->name('delete');
+
+                //** Events */
+                Route::group(['as' => 'events.', 'prefix' => '/event'], function () {
+                    Route::post('/reveal-answer/{question}', 'revealAnswer')->name('reveal-answer');
+                    Route::post('/new-question/{question}/', 'newQuestion')->name('new-question');
+                });
             });
 
             Route::controller(RoundController::class)->prefix('round')->name('rounds.')->group(function () {

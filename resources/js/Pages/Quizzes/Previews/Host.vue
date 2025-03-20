@@ -64,15 +64,15 @@
                         </div>
 
                         <div v-if="!isRoundComplete" class="col-12 flex justify-content-center">
-                            <div class="col-3">
+                            <div :class="!showAnswer ? 'col-3' : 'col-6'">
                                 <Button
-                                    :label="$t('actions.Correct')"
+                                    :label="!showAnswer ? $t('actions.Correct') : $t('actions.Next Question')"
                                     icon="pi pi-check"
                                     @click="nextQuestion"
                                 />
                             </div>
 
-                            <div class="col-3">
+                            <div v-if="!showAnswer" class="col-3">
                                 <Button
                                     :label="$t('actions.Wrong/Pass')"
                                     icon="pi pi-ban"
@@ -146,6 +146,7 @@ const nextQuestion = () => {
 
     if (showAnswer.value) {
         currentQuestionIndex.value++;
+        broadcastNewQuestion();
         showAnswer.value = false;
     } else {
         // Update timer if points are rewarded
@@ -155,12 +156,6 @@ const nextQuestion = () => {
 
         showAnswer.value = true;
         revealAnswer(currentQuestion.value?.id);
-
-        // Automatically move to the next question
-        setTimeout(() => {
-            currentQuestionIndex.value++;
-            showAnswer.value = false;
-        }, 1000);
     }
 };
 
@@ -184,9 +179,18 @@ const passQuestion = () => {
 
 const revealAnswer = (questionId) => {
     if (questionId) {
-        axios.post(route('quizzes.reveal-answer', { question: questionId }))
+        axios.post(route('quizzes.events.reveal-answer', { question: questionId }))
             .then(() => console.log("Event sent successfully"))
             .catch(error => console.error("Error sending event:", error));
+    }
+};
+
+
+const broadcastNewQuestion = () => {
+    if (currentQuestion.value?.id) {
+        axios.post(route('quizzes.events.new-question', { question: currentQuestion.value?.id }))
+            .then(() => console.log("New question broadcasted!"))
+            .catch(error => console.error("Error broadcasting new question:", error));
     }
 };
 

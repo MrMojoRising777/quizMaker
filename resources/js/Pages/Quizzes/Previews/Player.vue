@@ -7,13 +7,13 @@
         </div>
         <div class="col-12 mt-8">
             <h2 class="text-4xl text-center text-white font-bold">
-                {{ quiz.rounds[0].questions[0].text }}
+                {{ currentQuestion.text || 'No question available' }} <!-- quiz.rounds[0].questions[0].text -->
             </h2>
         </div>
 
         <div class="col-12">
             <h4 v-if="showAnswer" class="text-2xl text-center text-white font-bold">
-                {{ quiz.rounds[0].questions[0].answers[0].text }}
+                {{ currentAnswers.text || 'No answer available' }} <!-- quiz.rounds[0].questions[0].answers[0].text -->
             </h4>
         </div>
 
@@ -34,16 +34,20 @@
 
 <script setup>
 import Pusher from 'pusher-js';
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted } from 'vue';
 
 const props = defineProps({
     quiz: Object,
-    questionId: Number,
+    currentQuestion: Object,
+    currentAnswers: Object,
 });
 
 const showAnswer = ref(false);
 const players = ref(["Speler 1", "Speler 2", "Speler 3"]);
 const timers = ref(players.value.map(() => 60));
+
+const currentQuestion = ref(props.quiz.rounds[0].questions[0]);
+const currentAnswers = ref(currentQuestion.value.answers[0]);
 
 const startTimers = () => {
     setInterval(() => {
@@ -52,32 +56,27 @@ const startTimers = () => {
 };
 
 onMounted(() => {
-    Pusher.logToConsole = true;
+    // Pusher.logToConsole = true; // DEBUG
 
     let pusher = new Pusher(import.meta.env.VITE_PUSHER_APP_KEY, {
        cluster: 'eu',
     });
 
-    const subscribeToChannel = (questionId) => {
-        if (!questionId) return;
-        let channel = pusher.subscribe(`quiz.${questionId}`);
+    let channel = pusher.subscribe(`quiz.${props.quiz.id}`);
 
-        channel.bind('AnswerRevealed', function (data) {
-            showAnswer.value = true; // Show the answer when event is received
-        });
-    };
+    // Handle Answer Reveal
+    channel.bind('AnswerRevealed', function (data) {
+        showAnswer.value = true;
+    });
+
+    channel.bind('NewQuestion', function (data) {
+        currentQuestion.value = data.question;
+        currentAnswers.value = data.question.answers[0];
+        console.log("answers",data.question.answers);
+        showAnswer.value = false;
+    });
 
     // Start countdown timers
     // startTimers();
-
-    // Subscribe initially
-    subscribeToChannel(props.questionId);
-
-    watch(() => props.questionId, (newQuestionId, oldQuestionId) => {
-        if (oldQuestionId) {
-            pusher.unsubscribe(`quiz.${oldQuestionId}`);
-        }
-        subscribeToChannel(newQuestionId);
-    });
 });
 </script>

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Events\AnswerRevealed;
+use App\Events\NewQuestion;
 use App\Events\QuizStarted;
 use App\Models\Question;
 use App\Models\Quiz;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -63,15 +65,29 @@ class QuizController extends Controller
 
     public function previewPlayer(Quiz $quiz): \Inertia\Response
     {
+        $quizWithQuestions = $quiz->load('rounds.questions.answers');
+
+        $firstQuestion = $quizWithQuestions->rounds->first()->questions->first();
+        $firstAnswer = $firstQuestion->answers->first();
+
         return Inertia::render('Quizzes/Previews/Player', [
-            'quiz' => $quiz->load('rounds.questions.answers'),
-            'questionId' => $quiz->rounds[0]->questions[0]->id,
+            'quiz'              => $quizWithQuestions,
+            'currentQuestion'   => $firstQuestion,
+            'currentAnswers'    => $firstAnswer,
         ]);
     }
 
-    public function revealAnswer(Question $question)
+    public function revealAnswer(Question $question): JsonResponse
     {
-        broadcast(new AnswerRevealed($question->id));
+        broadcast(new AnswerRevealed($question));
+        return response()->json(['status' => 'success']);
+    }
+
+    public function newQuestion(Question $question): JsonResponse
+    {
+        $questionWithAnswers = $question->load('answers');
+
+        broadcast(new NewQuestion($questionWithAnswers));
         return response()->json(['status' => 'success']);
     }
 
